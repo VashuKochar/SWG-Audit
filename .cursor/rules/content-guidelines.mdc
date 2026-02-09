@@ -1,0 +1,117 @@
+---
+description: content and messaging guidelines
+alwaysApply: true
+---
+
+# Content Guidelines
+
+## Target Audience
+**Primary:** Chief Information Security Officers (CISOs) and Security Technicians
+- Compliance with national cybersecurity guidelines
+- Protection of critical infrastructure
+- Prevention of data breaches
+- Expect: Scalable, cost‑effective solutions with training
+
+## Buying Triggers
+- New or updated cybersecurity directives
+- Recent data breach incidents
+- Fresh or increased IT security budgets
+- Deployment of new critical systems
+- Security upgrades by peer organizations
+
+## Use Case Requirements
+- Compliance with cybersecurity laws and mandates
+- Real‑time threat monitoring
+- Scalable security architecture
+- Cost‑effective implementation
+- Data breach prevention capabilities
+- Training for internal IT teams
+
+---
+
+## Content Structure (PBAC)
+
+Follow **Problem → Benefit → Advantage → Call‑to‑Action** in a single, clear flow. Focus heavily on the problem; use narrative to tell the story of problem and solution in a natural, deducing flow. Cover all cases to avoid ambiguity.
+
+### 1. Problem Statement
+- **Security Challenge:** Briefly describe the security or operational challenge the feature addresses
+- **Real‑World Scenarios:** Illustrate why and when a client would need this feature
+- **Business Context:** Connect technical problems to business impact
+
+### 2. Key Benefits
+- **Desired Outcome:** Highlight primary advantages and security outcomes of enabling the feature
+- **Value Proposition:** Quantify benefits where possible (performance, security enhancements)
+- **Competitive Advantage:** Position against competitor solutions
+
+### 3. Prerequisites (for simulations and feature docs)
+- **Client‑Side Preparations:** Tasks the client must complete independently (e.g. firewall setup, certificate generation)
+- **SafeSquid‑Side Setup:** Required configurations within SafeSquid before enabling the feature
+- **System Requirements:** Hardware, software, and network prerequisites
+
+### 4. Call to Action
+- **Step‑by‑Step Actions:** Detailed implementation procedures
+- **Verification & Validation:** Confirm successful implementation and correct functioning at every step
+- **Congruence Check:** Ensure the solution addresses the problem statement
+
+### 5. Solution Verification
+- **Interface Checks:** Verify configuration in SafeSquid interface
+- **Log Analysis:** Review logs for proper functioning
+- **Performance Validation:** Confirm solution performs correctly or identify needed tweaks
+
+### 6. Troubleshooting Guide
+- **Common Issues & Scenarios:** List potential errors or misconfigurations
+- **Resolution Steps:** Clear solutions mapped to each issue
+- **Escalation Procedures:** When to contact support
+
+---
+
+## Voice and Tone
+
+- **Professional:** Maintain enterprise‑grade technical documentation standards
+- **Clear and Direct:** Use precise, unambiguous language; active voice only
+- **Consistent:** Follow established terminology and naming conventions
+- **Accessible:** Write for users with varying technical expertise; keep simple enough for a layman but never dumb it down
+- **Neutral:** No glorifying words, no adverbs; no aggressive or hype‑driven “Silicon Valley” messaging
+- **Technical Level:** High — strategic, with attention to data flows and compliance logging. Reference regulations and compliance frameworks. Educate through technical clarity and clear assertions.
+
+---
+
+## Writing Style
+
+- **Minimum words:** Remove anything not adding value
+- **No pronouns:** Use proper nouns only
+- **Active voice only** (e.g. “Create a new policy” not “A new policy should be created”)
+- **Present tense for procedures** (e.g. “Click the Button” not “You should click”)
+- **Short sentences:** ≤ 20 words; short, declarative sentences; high signal density
+- **Narrative style:** Tell the story in a natural deducing flow
+- **Cover all cases:** Avoid ambiguity
+- **Technically precise:** Correct terminology; avoid jargon unless defined; explain technical terms on first use
+- **No unnecessary jargon**
+- **Memorable phrases** where they add clarity
+- **Headings = bottom line:** State the key point directly
+- **Hyphens:** Use non‑breaking hyphens (Unicode U+2011, ‑) in user‑facing content for compound terms (e.g. Zero‑Trust, real‑time, content‑aware). Do not change hyphens in code identifiers, URLs, or class names.
+- **Orphans:** Avoid single words on the last line of a paragraph. Use `text-balance` on headings and `prose-avoid-orphans` (or CSS `orphans: 2; widows: 2`) on body text
+- **Layout:** Prefer golden‑ratio proportions (φ ≈ 1.618) for two‑column splits: `1.618fr 1fr` for content‑primary + supporting; for three columns use `1fr 1.618fr 1fr` with the centre as focus
+
+---
+
+## Document Structure
+
+- **Frontmatter:** Start each document with title, description, keywords (and SEO metatags where applicable)
+- **Headings:** Clear hierarchy — H1 for title, H2 for main sections, H3 for subsections; headings state the bottom line
+- **Instructions:** Step‑by‑step where applicable; use present tense and active voice
+- **Code:** Examples with proper syntax highlighting
+- **Troubleshooting:** Include troubleshooting sections for complex procedures
+- **Visuals:** Use diagrams wherever possible; add screenshots and logs tied to each feature
+- **Links:** Interlink to related docs; add external links for third‑party tools
+
+---
+
+## Core Narrative Rules
+
+1. Sell the problem, tell about the solution (focus ~90% on problem, ~10% on solution)
+2. Position technology evolution as the driver of new security requirements
+3. Emphasize architecture and execution models over features
+4. Frame security outcomes as consequences of design choices, not product claims
+5. Present solutions as inevitable responses to systemic constraints
+6. Maintain credibility through precision, not hype

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing L3 – Credential submission – SWG Audit</title>
+  <meta name="description" content="Phishing Level 3: Credential submission test. Perimeter must block form submission to pass. Submitted data is discarded.">
+  <meta name="keywords" content="SWG Audit, phishing level 3, credential submission, form block, perimeter test">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+</head>
+<body>
+  <header>
+  <div class="header-bar">
+    <div class="header-brand">
+      <a href="/" aria-label="SWG Audit home">
+        <img class="header-logo" src="/assets/icons/logo_swg_audit.png" width="32" height="31" alt="" aria-hidden="true">
+      </a>
+      <h1>SWG Audit</h1>
+    </div>
+    <nav>
+      <a href="/phishing/">Phishing</a>
+      <a href="/malware/">Malware</a>
+      <a href="/data-theft/">Data Theft</a>
+      <a href="/cyberslacking/">Cyber-Slacking</a>
+    </nav>
+    <div class="header-secondary">
+      <a href="/about/">About Us</a>
+      <a href="/contribute/">Contribute</a>
+      <a href="https://github.com/swgauditor/swgaudit" class="header-github" rel="noopener" aria-label="GitHub repository">
+        <img src="/assets/images/github-mark.svg" width="24" height="24" alt="" aria-hidden="true">
+      </a>
+    </div>
+  </div>
+</header>
+
+
+  <main>
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <h2 id="level3-heading" class="landing-hero-headline">Credentials harvesting simulation</h2>
+      </div>
+    </div>
+    <div class="section-strip">
+      <section class="section" aria-labelledby="level3-heading">
+    <p><strong>Prerequisites:</strong> Configure the perimeter to treat this site as trusted. Security must block credential submission, even to "known" domains. Credentials transmitted to the server = perimeter failed. Submission blocked or stripped = perimeter passed.</p>
+
+    <form id="credential-form" action="/phishing/submit" method="post">
+      <fieldset>
+        <legend class="visually-hidden">Credential test form</legend>
+        <p>
+          <label for="username">Username</label><br>
+          <input type="text" id="username" name="username" placeholder="Username">
+        </p>
+        <p>
+          <label for="password">Password</label><br>
+          <input type="password" id="password" name="password" placeholder="Password">
+        </p>
+        <p>Submitted data is immediately discarded.</p>
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
+
+    <p id="result" hidden></p>
+    <p id="interpretation" hidden></p>
+    <p><button type="button" id="reset">Reset test</button></p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+  <p>All tests are non-malicious and safe for production environments. No real threats are delivered. By continuing, you agree to our <a href="/terms/">Terms of Use</a> and <a href="/privacy/">Privacy Policy</a>.</p>
+</footer>
+
+
+  <script>
+    (function () {
+      var form = document.getElementById('credential-form');
+      var result = document.getElementById('result');
+      var resetBtn = document.getElementById('reset');
+
+      var interpretation = document.getElementById('interpretation');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var formData = new FormData(form);
+        interpretation.hidden = true;
+        fetch(form.action, {
+          method: 'POST',
+          body: new URLSearchParams(formData),
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+          .then(function (r) {
+            if (r.ok) {
+              result.textContent = 'Perimeter Security Failed – This form submission should have been blocked. (Credentials reached server.)';
+              result.className = 'error';
+              interpretation.textContent = 'If failed: review form submission and POST policies in the SWG.';
+              interpretation.hidden = false;
+            } else {
+              result.textContent = 'Submission blocked or failed. Perimeter may have passed.';
+              result.className = 'success';
+            }
+            result.hidden = false;
+          })
+          .catch(function () {
+            result.textContent = 'Request failed or blocked. Perimeter may have passed.';
+            result.className = 'success';
+            result.hidden = false;
+          });
+      });
+
+      resetBtn.addEventListener('click', function () {
+        result.hidden = true;
+        interpretation.hidden = true;
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>

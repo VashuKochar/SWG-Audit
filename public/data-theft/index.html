@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Theft Simulation – SWG Audit</title>
+  <meta name="description" content="Test perimeter security against data exfiltration. File upload (Level 1–2), DLP signatures, DNS exfil simulation. Uploaded files deleted after 10 minutes.">
+  <meta name="keywords" content="SWG Audit, data theft test, DLP, file upload, exfiltration, perimeter security">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+</head>
+<body>
+  <header>
+  <div class="header-bar">
+    <div class="header-brand">
+      <a href="/" aria-label="SWG Audit home">
+        <img class="header-logo" src="/assets/icons/logo_swg_audit.png" width="32" height="31" alt="" aria-hidden="true">
+      </a>
+      <h1>SWG Audit</h1>
+    </div>
+    <nav>
+      <a href="/phishing/">Phishing</a>
+      <a href="/malware/">Malware</a>
+      <a href="/data-theft/">Data Theft</a>
+      <a href="/cyberslacking/">Cyber-Slacking</a>
+    </nav>
+    <div class="header-secondary">
+      <a href="/about/">About Us</a>
+      <a href="/contribute/">Contribute</a>
+      <a href="https://github.com/swgauditor/swgaudit" class="header-github" rel="noopener" aria-label="GitHub repository">
+        <img src="/assets/images/github-mark.svg" width="24" height="24" alt="" aria-hidden="true">
+      </a>
+    </div>
+  </div>
+</header>
+
+
+  <main class="landing-hero">
+    <div class="landing-hero-inner">
+      <h2 id="hero-heading" class="landing-hero-headline">Validate the real-world effectiveness of your perimeter security against Data Theft</h2>
+      <p class="landing-hero-subline">DLP and SWG controls block or disrupt file uploads and DNS tunnelling. File upload (Level 1–2), DLP signatures, DNS exfil. Max file size 1 KB. Max 5 uploads per session. Files are deleted from the server after 10 minutes. Run from a device that routes through the perimeter under test.</p>
+      <nav class="landing-hero-cards" aria-label="Data theft simulation levels">
+        <a href="/data-theft/level1/" class="landing-hero-card">
+          <img src="/assets/images/data-theft.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 1: File upload types</span>
+        </a>
+        <a href="/data-theft/level2/" class="landing-hero-card">
+          <img src="/assets/images/data-theft.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 2: DLP signatures</span>
+        </a>
+        <a href="/data-theft/level3/" class="landing-hero-card">
+          <img src="/assets/images/data-theft.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 3: DNS exfil</span>
+        </a>
+      </nav>
+    </div>
+  </main>
+
+  <footer>
+  <p>All tests are non-malicious and safe for production environments. No real threats are delivered. By continuing, you agree to our <a href="/terms/">Terms of Use</a> and <a href="/privacy/">Privacy Policy</a>.</p>
+</footer>
+
+</body>
+</html>

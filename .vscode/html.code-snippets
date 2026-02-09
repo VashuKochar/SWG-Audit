@@ -1,0 +1,98 @@
+{
+  "SWG Document Shell": {
+    "prefix": "swg-doc",
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"en\">",
+      "<head>",
+      "  <meta charset=\"UTF-8\">",
+      "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "  <title>${1:Page title – SWG Audit}</title>",
+      "  <meta name=\"description\" content=\"${2:Page description}\">",
+      "  <meta name=\"keywords\" content=\"${3:SWG Audit, keywords}\">",
+      "  <link rel=\"stylesheet\" href=\"/css/style.css\">",
+      "  <link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/icons/favicon.ico\">",
+      "  <link rel=\"apple-touch-icon\" href=\"/assets/icons/apple-touch-icon.png\">",
+      "$4",
+      "</head>",
+      "<body>",
+      "  {{> header }}",
+      "  <main>",
+      "    $0",
+      "  </main>",
+      "  {{> footer }}",
+      "</body>",
+      "</html>"
+    ],
+    "description": "Full SWG Audit document shell with head placeholders and main"
+  },
+  "SWG Head Block": {
+    "prefix": "swg-head",
+    "body": [
+      "<meta charset=\"UTF-8\">",
+      "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "<title>${1:Page title – SWG Audit}</title>",
+      "<meta name=\"description\" content=\"${2:Page description}\">",
+      "<meta name=\"keywords\" content=\"${3:SWG Audit, keywords}\">",
+      "<link rel=\"stylesheet\" href=\"/css/style.css\">",
+      "<link rel=\"icon\" type=\"image/x-icon\" href=\"/assets/icons/favicon.ico\">",
+      "<link rel=\"apple-touch-icon\" href=\"/assets/icons/apple-touch-icon.png\">",
+      "$0"
+    ],
+    "description": "Head block: meta, title, description, keywords, CSS and favicons"
+  },
+  "SWG Header": {
+    "prefix": "swg-header",
+    "body": [
+      "<header>",
+      "  <div class=\"header-bar\">",
+      "    <div class=\"header-brand\">",
+      "      <a href=\"/\" aria-label=\"SWG Audit home\">",
+      "        <img class=\"header-logo\" src=\"/assets/icons/logo_swg_audit.png\" width=\"32\" height=\"31\" alt=\"\" aria-hidden=\"true\">",
+      "      </a>",
+      "      <h1>${1:SWG Audit}</h1>",
+      "    </div>",
+      "    <nav>",
+      "      <a href=\"/phishing/\">Phishing</a>",
+      "      <a href=\"/malware/\">Malware</a>",
+      "      <a href=\"/data-theft/\">Data Theft</a>",
+      "      <a href=\"/cyberslacking/\">Cyber-Slacking</a>",
+      "    </nav>",
+      "    <div class=\"header-secondary\">",
+      "      <a href=\"/about/\">About Us</a>",
+      "      <a href=\"/contribute/\">Contribute</a>",
+      "      <a href=\"https://github.com/swgauditor/swgaudit\" class=\"header-github\" rel=\"noopener\" aria-label=\"GitHub repository\">",
+      "        <img src=\"/assets/images/github-mark.svg\" width=\"24\" height=\"24\" alt=\"\" aria-hidden=\"true\">",
+      "      </a>",
+      "    </div>",
+      "  </div>",
+      "</header>"
+    ],
+    "description": "Full header: brand, four nav dropdowns, secondary links"
+  },
+  "SWG Footer": {
+    "prefix": "swg-footer",
+    "body": [
+      "<footer>",
+      "  <p>All tests are non-malicious and safe for production environments. No real threats are delivered. By continuing, you agree to our <a href=\"/terms/\">Terms of Use</a> and <a href=\"/privacy/\">Privacy Policy</a>.</p>",
+      "</footer>"
+    ],
+    "description": "Footer: safety text and Terms/Privacy links"
+  },
+  "SWG Simulation Banner": {
+    "prefix": "swg-banner",
+    "body": [
+      "<div class=\"simulation-banner\" role=\"status\">${1:Simulation context and disclaimer.}</div>"
+    ],
+    "description": "Simulation banner with placeholder text"
+  },
+  "SWG Main Wrapper": {
+    "prefix": "swg-main",
+    "body": [
+      "<main>",
+      "  $0",
+      "</main>"
+    ],
+    "description": "Main content wrapper"
+  }
+}

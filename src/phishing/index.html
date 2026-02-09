@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing Simulation – SWG Audit</title>
+  <meta name="description" content="Test perimeter security against credential theft. Phishing simulation levels: zero‑hour, URL spoofing, credential submission block.">
+  <meta name="keywords" content="SWG Audit, phishing test, credential theft, zero‑hour, URL spoofing, perimeter security">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+</head>
+<body>
+  {{> header }}
+
+
+  <main class="landing-hero">
+    <div class="landing-hero-inner">
+      <h2 id="hero-heading" class="landing-hero-headline">Validate the real-world effectiveness of your perimeter security against Phishing</h2>
+      <p class="landing-hero-subline">Phishing campaigns exploit URL reputation evasion and reverse proxy techniques. Credentials and session cookies are stolen even with MFA. Attackers register lookalike domains, get them categorised as safe, then deploy a phishing kit in the zero‑hour window.</p>
+      <nav class="landing-hero-cards" aria-label="Phishing simulation levels">
+        <a href="/phishing/level1/" class="landing-hero-card">
+          <img src="/assets/images/phishing.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 1: Zero‑hour phishing</span>
+        </a>
+        <a href="/phishing/level2/" class="landing-hero-card">
+          <img src="/assets/images/phishing.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 2: URL spoofing</span>
+        </a>
+        <a href="/phishing/level3/" class="landing-hero-card">
+          <img src="/assets/images/phishing.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 3: Credential submission</span>
+        </a>
+      </nav>
+    </div>
+  </main>
+
+  {{> footer }}
+
+</body>
+</html>

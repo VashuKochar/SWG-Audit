@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing L2 – URL spoofing – SWG Audit</title>
+  <meta name="description" content="Phishing Level 2: URL spoofing simulation. Tests whether the perimeter detects lookalike or spoofing‑style URLs.">
+  <meta name="keywords" content="SWG Audit, phishing level 2, URL spoofing, typosquatting, homographs">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+</head>
+<body>
+  {{> header }}
+
+
+  <main>
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <h2 id="level2-heading" class="landing-hero-headline">Phishing – Level 2: URL spoofing</h2>
+      </div>
+    </div>
+    <div class="section-strip">
+      <section class="section" aria-labelledby="level2-heading">
+    <p>This page simulates a lookalike login or spoofing‑style URL. The perimeter detects URL spoofing (subdomain abuse, typosquatting, homographs) and blocks or warns before a credential form is reached.</p>
+    <p>This page visible without a warning = perimeter may not detect this path as a spoofing risk. Internal and uncommon applications may go undetected.</p>
+    <p><strong>No credential form on this level.</strong> Proceed to Level 3 to test form submission block.</p>
+    <p><a href="/phishing/level3/">Level 3: Credential submission</a></p>
+      </section>
+    </div>
+  </main>
+
+  {{> footer }}
+
+</body>
+</html>

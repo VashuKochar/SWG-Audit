@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing L1 – Zero‑hour – SWG Audit</title>
+  <meta name="description" content="Phishing Level 1: URL filters and zero‑hour check. Known‑phishing blocklist test. Blocklist coverage is vendor‑dependent.">
+  <meta name="keywords" content="SWG Audit, phishing level 1, zero‑hour, URL filters, blocklist, PAN‑DB">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+</head>
+<body>
+  {{> header }}
+
+
+  <main>
+    <div class="page-hero">
+      <div class="page-hero-inner">
+        <h2 id="level1-heading" class="landing-hero-headline">Level 1: URL filters</h2>
+        <p class="landing-hero-subline">Zero‑hour phishing check</p>
+      </div>
+    </div>
+    <div class="section-strip">
+      <section class="section" aria-labelledby="level1-heading">
+    <p>URL filters block <em>known</em> phishing sites. Zero‑hour phishing bypasses filters; the site is not yet in reputation databases.</p>
+    <p><strong>Zero‑hour check:</strong> This page (SWG Audit) loads = perimeter may allow traffic to this domain. The decisive test is whether form submission (Level 3) is blocked.</p>
+    <p><strong>SWG verification:</strong> Request allowed = check whether the domain or path is in the block list or reputation feed. Zero‑hour sites are not yet in most databases.</p>
+
+    <h3>Known‑phishing blocklist check</h3>
+    <p>Open the known‑phishing link below. Blocked = perimeter passed. Link loads = perimeter may have failed for this feed.</p>
+    <ul>
+      <li><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener">Known phishing test URL (Palo Alto Networks PAN‑DB)</a></li>
+    </ul>
+    <p><strong>Note:</strong> Blocklist coverage depends on the SWG vendor. Other vendors may provide their own test URL; use the vendor’s recommended phishing test URL when the SWG uses a different feed.</p>
+
+    <p><a href="/phishing/level2/">Level 2: URL spoofing detection</a></p>
+    <p><a href="/phishing/level3/">Level 3: Credential submission block</a></p>
+      </section>
+    </div>
+  </main>
+
+  {{> footer }}
+
+</body>
+</html>
