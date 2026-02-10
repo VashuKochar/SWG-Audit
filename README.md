@@ -23,12 +23,12 @@ Users must pass Google reCAPTCHA and submit a business email before accessing an
 - **Setup:**  
   `git clone <repo>`  
   `npm install`  
-  Copy `.env.example` to `.env` and set:
+  Copy `.env.example` to `.env` (the server loads `.env` via dotenv) and set:
   - `RECAPTCHA_SITE_KEY` – reCAPTCHA site key (client)
   - `RECAPTCHA_SECRET_KEY` – reCAPTCHA secret (server)
   - `SESSION_SECRET` – at least 32 characters for signing the session cookie
 - **Local dev without solving captcha:** Set `SKIP_VERIFY=1` in `.env`.
-- **Start:** `npm start` (default port **5000**; override with `PORT`).
+- **Start:** `npm start` (default port **3000**; override with `PORT`).
 - **Build HTML:** After editing pages in `src/` or partials in `public/partials/`, run `npm run build:html` to write updated HTML into `public/`.
 - **Production:** Run behind **nginx or Caddy with HTTPS**. Hosting choice is left for later.
 

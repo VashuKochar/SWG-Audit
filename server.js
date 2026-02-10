@@ -1,7 +1,8 @@
 /**
  * SWG Audit - Node.js server
- * Port 5000, verification gate, static files, simulation routes.
+ * Port 3000, verification gate, static files, simulation routes.
  */
+require('dotenv').config();
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
@@ -13,7 +14,7 @@ const { verifyRecaptcha } = require('./lib/verify');
 const { EICAR } = require('./lib/eicar');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const TEMP_DIR = path.join(__dirname, 'temp');
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
@@ -49,23 +50,33 @@ function requireVerified(req, res, next) {
   res.redirect(302, '/');
 }
 
+// Allow GET to simulation pages so unverified users see the gate in the simulation box.
+// POST and other methods to simulation routes still require verification (enforced per-route where needed).
 const simulationPaths = ['/phishing', '/malware', '/data-theft', '/cyberslacking'];
 app.use((req, res, next) => {
   const isSimulation = simulationPaths.some((p) => req.path === p || req.path.startsWith(p + '/'));
-  if (isSimulation && !isVerified(req)) {
+  if (isSimulation && !isVerified(req) && req.method !== 'GET') {
     return res.redirect(302, '/?session_expired=1');
   }
   next();
 });
 
-// API: session status (for home page to show gate vs simulations)
+// API: session status (for simulation pages to show gate vs content)
 app.get('/api/session', (req, res) => {
   res.json({ verified: isVerified(req) });
 });
 
+// API: client config (e.g. reCAPTCHA site key for gate on level pages; skipVerify for dev)
+app.get('/api/config', (req, res) => {
+  res.json({
+    recaptchaSiteKey: process.env.RECAPTCHA_SITE_KEY || '',
+    skipVerify: SKIP_VERIFY,
+  });
+});
+
 // Verification gate: POST with reCAPTCHA token and business email
 app.post('/verify', async (req, res) => {
-  const { 'g-recaptcha-response': token, email } = req.body;
+  const { 'g-recaptcha-response': token, email, returnUrl } = req.body;
   const emailTrimmed = typeof email === 'string' ? email.trim() : '';
 
   if (!SKIP_VERIFY) {
@@ -77,7 +88,6 @@ app.post('/verify', async (req, res) => {
     }
   }
 
-  // Option B: accept any email (honour system)
   if (!emailTrimmed) {
     res.redirect(302, '/?error=email');
     return;
@@ -91,7 +101,11 @@ app.post('/verify', async (req, res) => {
     secure: process.env.NODE_ENV === 'production',
     signed: true,
   });
-  res.redirect(302, '/');
+
+  // Redirect back to level page if returnUrl is a safe path (same-origin path only)
+  const pathOnly = typeof returnUrl === 'string' ? returnUrl.trim().split('?')[0] : '';
+  const safeReturn = pathOnly && pathOnly.startsWith('/') && !pathOnly.startsWith('//') ? pathOnly : '/';
+  res.redirect(302, safeReturn);
 });
 
 // Phishing L3: credential form POST – discard body immediately, never log or store

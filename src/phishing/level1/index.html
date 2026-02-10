@@ -14,33 +14,101 @@
   {{> header }}
 
 
-  <main>
-    <div class="page-hero">
-      <div class="page-hero-inner">
-        <h2 id="level1-heading" class="landing-hero-headline">Level 1: URL filters</h2>
-        <p class="landing-hero-subline">Zero‑hour phishing check</p>
+  <main class="landing-hero">
+    <div class="landing-hero-inner">
+      <h2 id="hero-heading" class="landing-hero-headline">Phishing – Level 1: Known phishing</h2>
+      <p class="landing-hero-subline">Validate blocklist coverage for known phishing URLs. Blocklist coverage is vendor‑dependent.</p>
+      <div class="layout-two-column">
+        <div class="simulation-instructions-block">
+          <h3 id="sim-instructions-heading">Simulation instructions</h3>
+          <p>Configure the perimeter to allow this site. Security must block access to known phishing URLs. Blocklist coverage is vendor‑dependent.</p>
+          <div class="simulation-feedback">
+            <p class="error">If the known‑phishing link loads, perimeter may have failed for this feed.</p>
+            <p class="success">If the link is blocked, perimeter passed.</p>
+          </div>
+        </div>
+        <div class="simulation-box">
+          <div id="sim-gate" class="simulation-box-gate">
+            <p>Verify to run this simulation.</p>
+            <form id="verify-form" action="/verify" method="post" class="verify-form-wrap">
+              <input type="hidden" name="returnUrl" value="/phishing/level1/">
+              <p id="dev-skip-notice" class="dev-skip-notice" hidden aria-live="polite">Dev: reCAPTCHA skipped. Submit with business email only.</p>
+              <div id="recaptcha-wrap"></div>
+              <p>
+                <label for="verify-email">Business email</label><br>
+                <input type="email" id="verify-email" name="email" required placeholder="you@company.com">
+              </p>
+              <p class="legal-consent">By submitting, you agree to our <a href="/terms/">Terms of Use</a> and <a href="/privacy/">Privacy Policy</a>.</p>
+              <button type="submit">Verify and run simulation</button>
+            </form>
+          </div>
+          <div id="sim-content" class="simulation-box-content" hidden>
+            <h3 id="test-url-heading">Test URL access</h3>
+            <p><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener" class="button-cta">Known phishing test URL (Palo Alto Networks PAN‑DB)</a></p>
+            <p>Opening the link tests blocklist coverage. No data is submitted.</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="section-strip">
-      <section class="section" aria-labelledby="level1-heading">
-    <p>URL filters block <em>known</em> phishing sites. Zero‑hour phishing bypasses filters; the site is not yet in reputation databases.</p>
-    <p><strong>Zero‑hour check:</strong> This page (SWG Audit) loads = perimeter may allow traffic to this domain. The decisive test is whether form submission (Level 3) is blocked.</p>
-    <p><strong>SWG verification:</strong> Request allowed = check whether the domain or path is in the block list or reputation feed. Zero‑hour sites are not yet in most databases.</p>
-
-    <h3>Known‑phishing blocklist check</h3>
-    <p>Open the known‑phishing link below. Blocked = perimeter passed. Link loads = perimeter may have failed for this feed.</p>
-    <ul>
-      <li><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener">Known phishing test URL (Palo Alto Networks PAN‑DB)</a></li>
-    </ul>
-    <p><strong>Note:</strong> Blocklist coverage depends on the SWG vendor. Other vendors may provide their own test URL; use the vendor’s recommended phishing test URL when the SWG uses a different feed.</p>
-
-    <p><a href="/phishing/level2/">Level 2: URL spoofing detection</a></p>
-    <p><a href="/phishing/level3/">Level 3: Credential submission block</a></p>
-      </section>
+      <nav class="landing-hero-cards" aria-label="Phishing simulation levels">
+        <a href="/phishing/level2/" class="landing-hero-card">
+          <img src="/assets/images/phishing.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 2: URL spoofing</span>
+        </a>
+        <a href="/phishing/level3/" class="landing-hero-card">
+          <img src="/assets/images/phishing.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 3: Credential submission</span>
+        </a>
+      </nav>
     </div>
   </main>
 
   {{> footer }}
 
+  <script>
+    (function () {
+      var gateEl = document.getElementById('sim-gate');
+      var contentEl = document.getElementById('sim-content');
+
+      function showGate() {
+        gateEl.hidden = false;
+        contentEl.hidden = true;
+      }
+      function showContent() {
+        gateEl.hidden = true;
+        contentEl.hidden = false;
+      }
+
+      fetch('/api/session')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.verified) {
+            showContent();
+            return;
+          }
+          showGate();
+          return fetch('/api/config').then(function (c) { return c.json(); });
+        })
+        .then(function (config) {
+          if (!config) return;
+          if (config.skipVerify) {
+            var notice = document.getElementById('dev-skip-notice');
+            if (notice) notice.hidden = false;
+            return;
+          }
+          if (!config.recaptchaSiteKey) return;
+          var s = document.createElement('script');
+          s.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaL1&render=explicit';
+          s.async = true;
+          s.defer = true;
+          document.head.appendChild(s);
+          window.onRecaptchaL1 = function () {
+            if (typeof grecaptcha !== 'undefined' && document.getElementById('recaptcha-wrap')) {
+              grecaptcha.render('recaptcha-wrap', { sitekey: config.recaptchaSiteKey });
+            }
+          };
+        })
+        .catch(function () { showGate(); });
+    })();
+  </script>
 </body>
 </html>
