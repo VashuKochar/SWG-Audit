@@ -1,0 +1,16 @@
+{
+  "title": "Phishing Simulation – SWG Audit",
+  "description": "Test perimeter security against credential theft. Phishing simulation levels: zero‑hour, URL spoofing, credential submission block.",
+  "keywords": "SWG Audit, phishing test, credential theft, zero‑hour, URL spoofing, perimeter security",
+  "category": "Phishing",
+  "slug": "phishing",
+  "headline": "Validate the real-world effectiveness of your perimeter security against Phishing",
+  "subline": "Phishing campaigns exploit URL reputation evasion and reverse proxy techniques. Credentials and session cookies are stolen even with MFA. Attackers register lookalike domains, get them categorised as safe, then deploy a phishing kit in the zero‑hour window.",
+  "instructions": "Configure URL filters to block phishing websites, while allowing swgaudit.com for testing.",
+  "image": "/images/phishing.webp",
+  "levels": [
+    { "path": "level1", "title": "Level 1: Known phishing" },
+    { "path": "level2", "title": "Level 2: URL spoofing" },
+    { "path": "level3", "title": "Level 3: Credential submission" }
+  ]
+}

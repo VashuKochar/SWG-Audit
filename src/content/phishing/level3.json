@@ -1,0 +1,10 @@
+{
+  "title": "Phishing L3 – Credential submission – SWG Audit",
+  "description": "Phishing Level 3: Credential submission test. Perimeter must block form submission to pass. Submitted data is discarded.",
+  "keywords": "SWG Audit, phishing level 3, credential submission, form block, perimeter test",
+  "headline": "Phishing – Level 3: Credential submission",
+  "subline": "Perimeter must block credential submission to pass. Submitted data is discarded.",
+  "instructions": "Configure the perimeter to treat this site as trusted. Security must block credential submission, even to known domains. Credentials transmitted to the server = perimeter failed. Submission blocked or stripped = perimeter passed.",
+  "feedbackFail": "Credentials reached server = perimeter may have failed.",
+  "feedbackPass": "Submission blocked or stripped = perimeter passed."
+}

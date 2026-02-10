@@ -1,0 +1,10 @@
+{
+  "title": "Cyberslacking L1 – YouTube category links – SWG Audit",
+  "description": "Test perimeter category and URL policy. YouTube category links only. Blocked = perimeter passed; allowed = perimeter may not enforce restrictions.",
+  "keywords": "SWG Audit, cyberslacking test, category policy, URL policy, YouTube, perimeter security",
+  "headline": "Cyberslacking – Level 1: YouTube category links",
+  "subline": "Open each link. Blocked = perimeter passed for that category. Allowed = perimeter may have failed.",
+  "instructions": "Configure the perimeter to block non‑productive content categories (entertainment, gaming, music, sports). This test uses YouTube category links to validate enforcement.",
+  "feedbackFail": "Non‑productive content loaded = perimeter may not enforce category restrictions.",
+  "feedbackPass": "Access blocked or redirected = perimeter passed."
+}

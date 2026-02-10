@@ -1,0 +1,10 @@
+{
+  "title": "Data Theft L2 – DLP signatures – SWG Audit",
+  "description": "Data theft simulation: DLP signatures. Upload file with test credit card or SSN. DLP detects and blocks. Upload succeeds = DLP may not inspect content.",
+  "keywords": "SWG Audit, data theft test, DLP, credit card, SSN, perimeter security",
+  "headline": "Data Theft – Level 2: DLP signatures",
+  "subline": "Upload a file containing test credit card numbers or fake SSN. DLP detects and blocks. Upload succeeds = DLP may not inspect content.",
+  "instructions": "Configure the perimeter to allow this site. Security must detect and block outbound files containing sensitive data patterns (credit card numbers, SSN).",
+  "feedbackFail": "File upload succeeded = DLP may not inspect content for sensitive patterns.",
+  "feedbackPass": "Upload blocked or failed = DLP passed."
+}

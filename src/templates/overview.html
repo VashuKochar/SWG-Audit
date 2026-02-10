@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="keywords" content="{{keywords}}">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+</head>
+<body>
+  {{> header }}
+
+  <main class="landing-hero">
+    <div class="landing-hero-inner">
+      <h2 id="hero-heading" class="landing-hero-headline">{{headline}}</h2>
+      <p class="landing-hero-subline">{{subline}}</p>
+      {{instructionsBlock}}
+      <nav class="landing-hero-cards" aria-label="{{category}} simulation levels">
+        {{levelCards}}
+      </nav>
+    </div>
+  </main>
+
+  {{> footer }}
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "title": "Phishing L2 – URL spoofing – SWG Audit",
+  "description": "Phishing Level 2: URL spoofing simulation. Tests whether the perimeter detects lookalike or spoofing‑style URLs.",
+  "keywords": "SWG Audit, phishing level 2, URL spoofing, typosquatting, homographs",
+  "headline": "Phishing – Level 2: URL spoofing",
+  "subline": "Tests whether the perimeter detects lookalike or spoofing‑style URLs.",
+  "instructions": "Configure the perimeter to allow this site. Security must detect URL spoofing (subdomain abuse, typosquatting, homographs) and block or warn before a credential form is reached.",
+  "feedbackFail": "This page visible without a warning = perimeter may not detect this path as a spoofing risk.",
+  "feedbackPass": "Blocked or warned = perimeter passed."
+}

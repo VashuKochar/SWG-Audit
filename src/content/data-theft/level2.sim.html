@@ -1,0 +1,33 @@
+<h3 id="sim-content-heading">Upload DLP test file</h3>
+<form id="upload-form">
+  <div id="file-choice" class="data-theft-choice">
+    <p><strong>Choose file</strong></p>
+    <p class="data-theft-samples">
+      <span class="data-theft-sample-label">Use sample:</span>
+      <button type="button" id="sample-dlp" aria-label="Use sample DLP test file">DLP test (card + SSN)</button>
+    </p>
+    <p class="data-theft-upload-label">Or upload your own file (max 1 KB)</p>
+    <div id="upload-area" class="data-theft-upload-area" role="button" tabindex="0" aria-label="Drag and drop or click to select a file">
+      <span class="data-theft-upload-text">Drag and drop or click to select a file</span>
+      <input type="file" id="file" name="file" accept="*" class="data-theft-file-input">
+    </div>
+  </div>
+  <div id="current-file-block" class="data-theft-current" hidden>
+    <p><strong>Current file:</strong> <span id="current-file-name" aria-live="polite"></span><span id="current-file-size" class="data-theft-filesize" aria-live="polite"></span></p>
+    <p>
+      <label for="file-name">File name (optional)</label><br>
+      <input type="text" id="file-name" name="file-name" aria-label="File name for upload">
+    </p>
+    <p>
+      <button type="button" id="change-file" aria-label="Choose a different file or sample">Change file</button>
+      <button type="submit">Upload file</button>
+    </p>
+  </div>
+</form>
+<div id="upload-result-block" class="data-theft-result" hidden>
+  <h4 id="upload-result-heading"></h4>
+  <p id="upload-result-message"></p>
+  <p id="upload-result-url-wrap" class="data-theft-result-url" hidden></p>
+  <p id="upload-result-delete-msg" class="data-theft-delete-msg" hidden>File will be deleted from the server in <span id="upload-timer" aria-live="polite">10:00</span></p>
+  <p><button type="button" id="reset-test-btn" class="button-secondary">Reset test</button></p>
+</div>

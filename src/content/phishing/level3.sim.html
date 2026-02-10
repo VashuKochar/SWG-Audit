@@ -1,0 +1,19 @@
+<h3 id="sim-content-heading">Simulation</h3>
+<form id="credential-form" action="/phishing/submit" method="post">
+  <fieldset>
+    <legend class="visually-hidden">Credential test form</legend>
+    <p>
+      <label for="username">Username</label><br>
+      <input type="text" id="username" name="username" placeholder="Username">
+    </p>
+    <p>
+      <label for="password">Password</label><br>
+      <input type="password" id="password" name="password" placeholder="Password">
+    </p>
+    <p>Submitted data is immediately discarded.</p>
+    <button type="submit">Submit</button>
+  </fieldset>
+</form>
+<p id="result" hidden></p>
+<p id="interpretation" hidden></p>
+<p><button type="button" id="reset">Reset test</button></p>
