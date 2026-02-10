@@ -15,7 +15,7 @@ const { EICAR } = require('./lib/eicar');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const PUBLIC_DIR = path.join(__dirname, 'public');
+const DIST_DIR = path.join(__dirname, 'dist');
 const TEMP_DIR = path.join(__dirname, 'temp');
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-secret-min-32-characters-long';
@@ -34,7 +34,7 @@ const uploadCountBySession = new Map();
 app.use(cookieParser(SESSION_SECRET));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(PUBLIC_DIR));
+app.use(express.static(DIST_DIR));
 
 function getSessionId(req) {
   return req.signedCookies && req.signedCookies[COOKIE_NAME];
@@ -229,7 +229,7 @@ app.get('/malware/chunk/2', (req, res) => {
 let indexHtmlCache = null;
 app.get('/', (req, res) => {
   if (!indexHtmlCache) {
-    const file = path.join(PUBLIC_DIR, 'index.html');
+    const file = path.join(DIST_DIR, 'index.html');
     indexHtmlCache = fs.readFileSync(file, 'utf8').replace(
       'RECAPTCHA_SITE_KEY_PLACEHOLDER',
       process.env.RECAPTCHA_SITE_KEY || ''

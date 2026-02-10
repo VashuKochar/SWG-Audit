@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phishing L1 – Zero‑hour – SWG Audit</title>
+  <meta name="description" content="Phishing Level 1: URL filters and zero‑hour check. Known‑phishing blocklist test. Blocklist coverage is vendor‑dependent.">
+  <meta name="keywords" content="SWG Audit, phishing level 1, zero‑hour, URL filters, blocklist, PAN‑DB">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+</head>
+<body>
+  {{> header }}
+
+
+  <main class="landing-hero">
+    <div class="landing-hero-inner">
+      <h2 id="hero-heading" class="landing-hero-headline">Phishing – Level 1: Known phishing</h2>
+      <p class="landing-hero-subline">Validate blocklist coverage for known phishing URLs. Blocklist coverage is vendor‑dependent.</p>
+      <div class="layout-two-column">
+        <div class="simulation-instructions-block">
+          <h3 id="sim-instructions-heading">Simulation instructions</h3>
+          <p>Configure the perimeter to allow this site. Security must block access to known phishing URLs. Blocklist coverage is vendor‑dependent.</p>
+          <div class="simulation-feedback">
+            <p class="error">If the known‑phishing link loads, perimeter may have failed for this feed.</p>
+            <p class="success">If the link is blocked, perimeter passed.</p>
+          </div>
+        </div>
+        <div class="simulation-box">
+          <div id="sim-gate" class="simulation-box-gate">
+            <p>Verify to run this simulation.</p>
+            <form id="verify-form" action="/verify" method="post" class="verify-form-wrap">
+              <input type="hidden" name="returnUrl" value="/phishing/level1/">
+              <p id="dev-skip-notice" class="dev-skip-notice" hidden aria-live="polite">Dev: reCAPTCHA skipped. Submit with business email only.</p>
+              <div id="recaptcha-wrap"></div>
+              <p>
+                <label for="verify-email">Business email</label><br>
+                <input type="email" id="verify-email" name="email" required placeholder="you@company.com">
+              </p>
+              <p class="legal-consent">By submitting, you agree to our <a href="/terms/">Terms of Use</a> and <a href="/privacy/">Privacy Policy</a>.</p>
+              <button type="submit">Verify and run simulation</button>
+            </form>
+          </div>
+          <div id="sim-content" class="simulation-box-content" hidden>
+            <h3 id="test-url-heading">Test URL access</h3>
+            <p><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener" class="button-cta">Known phishing test URL (Palo Alto Networks PAN‑DB)</a></p>
+            <p>Opening the link tests blocklist coverage. No data is submitted.</p>
+          </div>
+        </div>
+      </div>
+      <nav class="landing-hero-cards" aria-label="Phishing simulation levels">
+        <a href="/phishing/level2/" class="landing-hero-card">
+          <img src="/images/phishing.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 2: URL spoofing</span>
+        </a>
+        <a href="/phishing/level3/" class="landing-hero-card">
+          <img src="/images/phishing.webp" alt="" class="landing-hero-card-img" width="64" height="64">
+          <span class="landing-hero-card-title">Level 3: Credential submission</span>
+        </a>
+      </nav>
+    </div>
+  </main>
+
+  {{> footer }}
+
+  <script>
+    (function () {
+      var gateEl = document.getElementById('sim-gate');
+      var contentEl = document.getElementById('sim-content');
+
+      function showGate() {
+        gateEl.hidden = false;
+        contentEl.hidden = true;
+      }
+      function showContent() {
+        gateEl.hidden = true;
+        contentEl.hidden = false;
+      }
+
+      fetch('/api/session')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data.verified) {
+            showContent();
+            return;
+          }
+          showGate();
+          return fetch('/api/config').then(function (c) { return c.json(); });
+        })
+        .then(function (config) {
+          if (!config) return;
+          if (config.skipVerify) {
+            var notice = document.getElementById('dev-skip-notice');
+            if (notice) notice.hidden = false;
+            return;
+          }
+          if (!config.recaptchaSiteKey) return;
+          var s = document.createElement('script');
+          s.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaL1&render=explicit';
+          s.async = true;
+          s.defer = true;
+          document.head.appendChild(s);
+          window.onRecaptchaL1 = function () {
+            if (typeof grecaptcha !== 'undefined' && document.getElementById('recaptcha-wrap')) {
+              grecaptcha.render('recaptcha-wrap', { sitekey: config.recaptchaSiteKey });
+            }
+          };
+        })
+        .catch(function () { showGate(); });
+    })();
+  </script>
+</body>
+</html>

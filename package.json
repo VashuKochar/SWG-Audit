@@ -4,10 +4,10 @@
   "description": "Open-source initiative to help buyers validate perimeter security against web-based threats",
   "main": "server.js",
   "scripts": {
+    "build": "node lib/build.js",
     "start": "node server.js",
-    "dev": "node server.js",
-    "build:html": "node lib/build-html.js",
-    "watch": "chokidar 'src/**/*.html' 'public/partials/*.html' -c 'npm run build:html'"
+    "dev": "npm run build && node server.js",
+    "watch": "chokidar 'src/**/*' 'public/**/*' -c 'npm run build'"
   },
   "license": "Apache-2.0",
   "dependencies": {
