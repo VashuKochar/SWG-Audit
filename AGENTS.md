@@ -12,18 +12,53 @@
 
 ```
 src/
-  pages/       → HTML templates with {{> header }} / {{> footer }} placeholders
-  partials/    → Reusable HTML fragments (header.html, footer.html)
-  css/         → Stylesheets (style.css)
-public/        → Static assets only (icons/, images/) — never generated files
-dist/          → Build output (gitignored) — served by Express
-lib/           → Build script + server utilities
-server.js      → Express server (serves dist/)
+  templates/       3 HTML layout templates (home, overview, simulation)
+  content/         Page content: JSON metadata + HTML snippets + optional JS
+    home.json        Homepage content
+    {category}/
+      overview.json    Category metadata + level list
+      level*.json      Simulation metadata (title, instructions, feedback)
+      level*.sim.html  Unique simulation content (HTML inside #sim-content)
+      level*.script.js Per‑simulation client script (optional)
+  pages/           Static pages (about, contribute, privacy, terms) — partial replacement only
+  partials/        Reusable HTML fragments (header.html, footer.html)
+  css/             Stylesheets (style.css)
+public/            Static assets only (icons/, images/) — never generated files
+dist/              Build output (gitignored) — served by Express
+lib/               Build script + server utilities
+server.js          Express server (serves dist/)
 ```
 
-- `npm run build` compiles pages (resolves partials, copies CSS + assets) → `dist/`
-- `npm run dev` builds then starts the server
-- `npm run watch` rebuilds on file changes
+### Build commands
+
+| Command | Action |
+|---|---|
+| `npm run build` | Compile templates + copy assets → `dist/` |
+| `npm start` | Start Express (serves `dist/`) |
+| `npm run dev` | Build then start |
+| `npm run watch` | Rebuild on file changes |
+
+### How templates work
+
+The build script (`lib/build.js`) renders three page types:
+
+1. **Homepage** — `templates/home.html` + `content/home.json`
+2. **Overviews** — `templates/overview.html` + `content/{category}/overview.json`
+3. **Simulations** — `templates/simulation.html` + `content/{category}/level*.json` + `.sim.html` + optional `.script.js`
+
+Static pages in `src/pages/` use `{{> header }}` / `{{> footer }}` partial replacement (no template).
+
+All simulation pages share a single template with: verification gate, two‑column layout (instructions + simulation box), pass/fail feedback, session check + reCAPTCHA script, and sibling level navigation.
+
+### Adding a new simulation level
+
+1. Add the level to `src/content/{category}/overview.json` → `levels` array.
+2. Create `level{N}.json` — title, description, keywords, instructions, feedback text.
+3. Create `level{N}.sim.html` — unique simulation content.
+4. Optionally create `level{N}.script.js` — client‑side logic.
+5. Run `npm run build`.
+
+The build script derives the URL, return path, and sibling navigation automatically.
 
 ---
 
@@ -123,11 +158,10 @@ When editing pages or CSS:
 
 ## Landing Page Improvement Plan
 
-See the archived plan for landing page conversion improvements. Key items:
+Key items for the homepage conversion:
 
 - Single primary hero CTA ("Run simulations" → `#run-simulations`); secondary category links
 - Trust strip under hero (open‑source, no lock‑in)
 - Outcome cards instead of bullet list (use existing `.outcomes-cards` CSS)
 - Two‑step framing for simulation section (Verify → Run from network)
-- Fix Data Theft level count (3, not 2)
 - Clearer loading state and gate layout

@@ -10,8 +10,39 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const multer = require('multer');
 const JSZip = require('jszip');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+const winston = require('winston');
+const validator = require('validator');
 const { verifyRecaptcha } = require('./lib/verify');
 const { EICAR } = require('./lib/eicar');
+
+// Logger setup
+const logger = winston.createLogger({
+  level: process.env.LOG_LEVEL || 'info',
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    winston.format.json()
+  ),
+  transports: [
+    new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'logs/combined.log' }),
+  ],
+});
+
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({
+    format: winston.format.combine(
+      winston.format.colorize(),
+      winston.format.simple()
+    ),
+  }));
+}
+
+const logsDir = path.join(__dirname, 'logs');
+if (!fs.existsSync(logsDir)) fs.mkdirSync(logsDir, { recursive: true });
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -31,10 +62,40 @@ if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 const uploadCountBySession = new Map();
 
+// Security headers
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://www.google.com", "https://www.gstatic.com"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"],
+      frameSrc: ["https://www.google.com"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: process.env.NODE_ENV === 'production' ? [] : null,
+    },
+  },
+}));
+
+// Compression
+app.use(compression());
+
+// Request logging
+app.use(morgan('combined', {
+  stream: { write: (message) => logger.info(message.trim()) },
+}));
+
 app.use(cookieParser(SESSION_SECRET));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(DIST_DIR));
+
+// Static files with caching
+app.use(express.static(DIST_DIR, {
+  maxAge: process.env.NODE_ENV === 'production' ? '1d' : 0,
+  etag: true,
+}));
 
 function getSessionId(req) {
   return req.signedCookies && req.signedCookies[COOKIE_NAME];
@@ -74,6 +135,15 @@ app.get('/api/config', (req, res) => {
   });
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+  });
+});
+
 // Verification gate: POST with reCAPTCHA token and business email
 app.post('/verify', async (req, res) => {
   const { 'g-recaptcha-response': token, email, returnUrl } = req.body;
@@ -88,8 +158,18 @@ app.post('/verify', async (req, res) => {
     }
   }
 
-  if (!emailTrimmed) {
-    res.redirect(302, '/?error=email');
+  // Validate email format and block common free email providers (business email only)
+  if (!emailTrimmed || !validator.isEmail(emailTrimmed)) {
+    logger.warn(`Invalid email format: ${emailTrimmed}`);
+    res.redirect(302, '/?error=email_invalid');
+    return;
+  }
+
+  const freeProviders = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'proton.me', 'protonmail.com'];
+  const emailDomain = emailTrimmed.split('@')[1]?.toLowerCase();
+  if (freeProviders.includes(emailDomain)) {
+    logger.warn(`Free email provider rejected: ${emailTrimmed}`);
+    res.redirect(302, '/?error=email_business');
     return;
   }
 
@@ -239,6 +319,28 @@ app.get('/', (req, res) => {
   res.send(indexHtmlCache);
 });
 
+// 404 handler
+app.use((req, res, next) => {
+  const page404 = path.join(DIST_DIR, '404.html');
+  if (fs.existsSync(page404)) {
+    res.status(404).sendFile(page404);
+  } else {
+    res.status(404).send('<h1>404 - Page Not Found</h1>');
+  }
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  logger.error('Unhandled error:', err);
+  const page500 = path.join(DIST_DIR, '500.html');
+  if (fs.existsSync(page500)) {
+    res.status(500).sendFile(page500);
+  } else {
+    res.status(500).send('<h1>500 - Internal Server Error</h1>');
+  }
+});
+
 app.listen(PORT, '127.0.0.1', () => {
+  logger.info(`SWG Audit running at http://localhost:${PORT}`);
   console.log(`SWG Audit running at http://localhost:${PORT}`);
 });

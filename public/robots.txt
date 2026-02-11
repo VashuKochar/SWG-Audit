@@ -1,0 +1,7 @@
+# SWG Audit - robots.txt
+User-agent: *
+Allow: /
+Disallow: /data-theft/uploads/
+Disallow: /malware/chunk/
+
+Sitemap: https://www.swgaudit.com/sitemap.xml

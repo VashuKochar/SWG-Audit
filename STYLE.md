@@ -1,6 +1,6 @@
 # Style and layout
 
-Consistent visual design and page structure for SWG Audit. See [public/css/style.css](public/css/style.css) for implementation.
+Consistent visual design and page structure for SWG Audit. See [src/css/style.css](src/css/style.css) for implementation.
 
 ## Design tokens (CSS variables)
 
