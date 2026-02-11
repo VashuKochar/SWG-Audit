@@ -1,33 +1,118 @@
-<h3 id="sim-content-heading">Upload test file</h3>
-<form id="upload-form">
-  <div id="file-choice" class="data-theft-choice">
-    <p><strong>Choose file</strong></p>
-    <p class="data-theft-samples">
-      <span class="data-theft-sample-label">Use sample:</span>
-      <button type="button" id="sample-plain" aria-label="Use sample plain text file">Plain text</button>
-    </p>
-    <p class="data-theft-upload-label">Or upload your own file (max 1 KB)</p>
-    <div id="upload-area" class="data-theft-upload-area" role="button" tabindex="0" aria-label="Drag and drop or click to select a file">
-      <span class="data-theft-upload-text">Drag and drop or click to select a file</span>
-      <input type="file" id="file" name="file" accept="*" class="data-theft-file-input">
+<div class="sim-section">
+  <h3 id="sim-content-heading">File Upload Test</h3>
+  <p>Attempt to upload a file. A properly configured SWG with DLP should block or inspect outbound file uploads.</p>
+  
+  <form id="upload-form">
+    <div id="file-choice" class="data-theft-choice">
+      <p><strong>Choose file</strong></p>
+      <p class="data-theft-samples">
+        <span class="data-theft-sample-label">Use sample:</span>
+        <button type="button" id="sample-plain" aria-label="Use sample plain text file">Plain text</button>
+      </p>
+      <p class="data-theft-upload-label">Or upload your own file (max 1 KB)</p>
+      <div id="upload-area" class="data-theft-upload-area" role="button" tabindex="0" aria-label="Drag and drop or click to select a file">
+        <span class="data-theft-upload-text">Drag and drop or click to select a file</span>
+        <input type="file" id="file" name="file" accept="*" class="data-theft-file-input">
+      </div>
+    </div>
+    <div id="current-file-block" class="data-theft-current" hidden>
+      <p><strong>Current file:</strong> <span id="current-file-name" aria-live="polite"></span><span id="current-file-size" class="data-theft-filesize" aria-live="polite"></span></p>
+      <p>
+        <label for="file-name">File name (optional)</label><br>
+        <input type="text" id="file-name" name="file-name" aria-label="File name for upload">
+      </p>
+      <p>
+        <button type="button" id="change-file" aria-label="Choose a different file or sample">Change file</button>
+        <button type="submit">Upload file</button>
+      </p>
+    </div>
+  </form>
+  
+  <div id="upload-result-block" class="data-theft-result" hidden>
+    <h4 id="upload-result-heading"></h4>
+    <p id="upload-result-message"></p>
+    <p id="upload-result-url-wrap" class="data-theft-result-url" hidden></p>
+    <p id="upload-result-delete-msg" class="data-theft-delete-msg" hidden>File will be deleted from the server in <span id="upload-timer" aria-live="polite">10:00</span></p>
+    <p><button type="button" id="reset-test-btn" class="button-secondary">Reset test</button></p>
+  </div>
+  
+  <!-- Enhanced result banners -->
+  <div id="result-pass" class="result-banner result-banner-pass">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">✅</span>
+      <span>PASS — Upload Blocked</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> Your SWG blocked the file upload before it could reach the server.</p>
+      <p><strong>Why this matters:</strong> This demonstrates outbound DLP (Data Loss Prevention):</p>
+      <ul>
+        <li>File upload interception</li>
+        <li>Content inspection before transmission</li>
+        <li>Prevention of unauthorized data exfiltration</li>
+      </ul>
+      <p>Even if a user attempts to upload sensitive data, the perimeter prevents it from leaving the network.</p>
     </div>
   </div>
-  <div id="current-file-block" class="data-theft-current" hidden>
-    <p><strong>Current file:</strong> <span id="current-file-name" aria-live="polite"></span><span id="current-file-size" class="data-theft-filesize" aria-live="polite"></span></p>
-    <p>
-      <label for="file-name">File name (optional)</label><br>
-      <input type="text" id="file-name" name="file-name" aria-label="File name for upload">
-    </p>
-    <p>
-      <button type="button" id="change-file" aria-label="Choose a different file or sample">Change file</button>
-      <button type="submit">Upload file</button>
-    </p>
+  
+  <div id="result-fail" class="result-banner result-banner-fail">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">❌</span>
+      <span>FAIL — Upload Succeeded</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> The file was uploaded successfully to the server.</p>
+      <p><strong>Why this is a problem:</strong> Your perimeter did not block or inspect the upload. In a real data theft scenario:</p>
+      <ul>
+        <li>Sensitive documents could be exfiltrated</li>
+        <li>Intellectual property could be stolen</li>
+        <li>Compliance violations (GDPR, HIPAA, PCI-DSS)</li>
+        <li>Insider threats go undetected</li>
+      </ul>
+      <p><strong>What to check:</strong></p>
+      <ul>
+        <li>Is DLP (Data Loss Prevention) enabled on your SWG?</li>
+        <li>Are file upload policies configured?</li>
+        <li>Is POST body inspection active?</li>
+        <li>Are file type restrictions in place?</li>
+      </ul>
+    </div>
   </div>
-</form>
-<div id="upload-result-block" class="data-theft-result" hidden>
-  <h4 id="upload-result-heading"></h4>
-  <p id="upload-result-message"></p>
-  <p id="upload-result-url-wrap" class="data-theft-result-url" hidden></p>
-  <p id="upload-result-delete-msg" class="data-theft-delete-msg" hidden>File will be deleted from the server in <span id="upload-timer" aria-live="polite">10:00</span></p>
-  <p><button type="button" id="reset-test-btn" class="button-secondary">Reset test</button></p>
+</div>
+
+<!-- Explainer: What this simulation tests -->
+<div class="explainer-box">
+  <h4>💡 What This Simulation Tests</h4>
+  <p>This level validates <strong>outbound file upload blocking</strong> — preventing unauthorized data from leaving your network.</p>
+  <p>A properly configured SWG should:</p>
+  <ul>
+    <li>Inspect HTTP POST requests containing file uploads</li>
+    <li>Block uploads based on file type, size, or content</li>
+    <li>Apply DLP policies to prevent sensitive data exfiltration</li>
+    <li>Log and alert on blocked upload attempts</li>
+  </ul>
+  <p><strong>Attack Vector:</strong> Insider threats and compromised accounts often use file uploads to exfiltrate data. Common targets:</p>
+  <ul>
+    <li>Cloud storage (Dropbox, Google Drive, OneDrive)</li>
+    <li>File sharing sites (WeTransfer, SendAnywhere)</li>
+    <li>Personal email attachments</li>
+    <li>Pastebin-style text sharing sites</li>
+  </ul>
+  <p><strong>Test limitations:</strong> This test uses a 1KB file limit for safety. Real DLP should inspect larger files and use content fingerprinting.</p>
+</div>
+
+<!-- Recommendation box -->
+<div class="recommendation-box">
+  <h4>🛡️ Best Practice Recommendations</h4>
+  <p>To ensure your SWG effectively prevents data exfiltration:</p>
+  <ul>
+    <li><strong>Enable DLP policies</strong> — block uploads containing PII, credit cards, SSNs, API keys</li>
+    <li><strong>File type restrictions</strong> — block executable uploads (.exe, .dll, .scr)</li>
+    <li><strong>Content fingerprinting</strong> — detect sensitive documents by signature, not just filename</li>
+    <li><strong>Size limits</strong> — flag unusually large uploads for review</li>
+    <li><strong>Allowlist trusted destinations</strong> — permit uploads to approved cloud services only</li>
+    <li><strong>User education</strong> — train employees on acceptable use policies</li>
+    <li><strong>Audit logs</strong> — retain upload attempts for forensic analysis</li>
+    <li><strong>SSL/TLS inspection required</strong> — can't inspect HTTPS uploads without decryption</li>
+  </ul>
+  <p><strong>Note:</strong> Level 2 tests DLP signature detection. Level 3 tests DNS-based exfiltration (bypass technique).</p>
 </div>

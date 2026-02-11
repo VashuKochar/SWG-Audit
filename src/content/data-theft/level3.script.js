@@ -1,23 +1,38 @@
-(function () {
-  var exfilBtn = document.getElementById('exfil-btn');
-  var exfilResult = document.getElementById('exfil-result');
+// Load shared result helper
+(function() {
+  var script = document.createElement('script');
+  script.src = '/js/shared/result-helper.js';
+  script.onload = function() {
+    initDNSExfilTest();
+  };
+  document.head.appendChild(script);
+})();
 
-  if (!exfilBtn) return;
+function initDNSExfilTest() {
+  var btn = document.getElementById('exfil-btn');
 
-  exfilBtn.addEventListener('click', function () {
-    var payload = btoa('test-exfil-' + Date.now());
-    exfilResult.hidden = true;
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    hideResults(); // Clear any previous results
+    
+    // Simulate exfil payload (Base64-encoded test data)
+    var payload = btoa('SENSITIVE_DATA_TEST_PAYLOAD_' + Date.now());
+    
+    // Send to server via query parameter
     fetch('/data-theft/exfil?data=' + encodeURIComponent(payload))
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        exfilResult.textContent = 'Perimeter Security Failed – ' + (data.message || 'Exfil request reached server.');
-        exfilResult.className = 'error';
-        exfilResult.hidden = false;
+      .then(function(r) {
+        if (r.ok) {
+          // Request succeeded = server received data = FAIL
+          showResult('fail');
+        } else {
+          // Request blocked or failed = PASS
+          showResult('pass');
+        }
       })
-      .catch(function () {
-        exfilResult.textContent = 'Request blocked or failed. Perimeter may have passed.';
-        exfilResult.className = 'success';
-        exfilResult.hidden = false;
+      .catch(function(err) {
+        // Network error or blocked = PASS
+        showResult('pass');
       });
   });
-})();
+}

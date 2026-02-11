@@ -163,10 +163,44 @@
   // Expose showToast globally for other scripts to use
   window.showToast = showToast;
   
+  // ========== Check for verification status ==========
+  function checkVerificationStatus() {
+    var params = new URLSearchParams(window.location.search);
+    
+    if (params.has('verified')) {
+      var status = params.get('verified');
+      if (status === 'success') {
+        showToast('✅ Verification successful! You now have 24-hour access to all simulations.', 'success');
+      }
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+    
+    if (params.has('error')) {
+      var error = params.get('error');
+      var message = 'Verification failed. Please try again.';
+      
+      if (error === 'captcha') {
+        message = '❌ reCAPTCHA verification failed. Please try again.';
+      } else if (error === 'email_invalid') {
+        message = '❌ Please enter a valid email address.';
+      } else if (error === 'email_business') {
+        message = '❌ Please use a company email. Free providers (Gmail, Yahoo, etc.) are not accepted.';
+      } else if (error === 'session_expired') {
+        message = '⚠️ Session expired. Please verify again to continue.';
+      }
+      
+      showToast(message, 'error', 8000); // Show error longer
+      // Clean URL
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }
+  
   // ========== Initialize on DOM ready ==========
   function init() {
     initDarkMode();
     initMobileMenu();
+    checkVerificationStatus();
   }
   
   if (document.readyState === 'loading') {

@@ -185,7 +185,7 @@ app.post('/verify', async (req, res) => {
   // Redirect back to level page if returnUrl is a safe path (same-origin path only)
   const pathOnly = typeof returnUrl === 'string' ? returnUrl.trim().split('?')[0] : '';
   const safeReturn = pathOnly && pathOnly.startsWith('/') && !pathOnly.startsWith('//') ? pathOnly : '/';
-  res.redirect(302, safeReturn);
+  res.redirect(302, safeReturn + '?verified=success');
 });
 
 // Phishing L3: credential form POST – discard body immediately, never log or store

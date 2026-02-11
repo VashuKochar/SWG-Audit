@@ -1,4 +1,114 @@
-<h3 id="sim-content-heading">DNS exfil test</h3>
-<p>A small encoded payload is sent to the server via a query parameter, simulating DNS‑style data exfiltration.</p>
-<p><button type="button" id="exfil-btn" class="button-cta">Send simulated exfil payload</button></p>
-<p id="exfil-result" hidden></p>
+<div class="sim-section">
+  <h3 id="sim-content-heading">DNS Exfiltration Test</h3>
+  <p>This simulates DNS-based data exfiltration — sending encoded data in HTTP query parameters or DNS queries, bypassing traditional DLP.</p>
+  <p><strong>How it works:</strong> Sensitive data is encoded (Base64) and sent as a query parameter to this server. If your SWG doesn't inspect query strings or DNS, the data leaks.</p>
+  
+  <p><button type="button" id="exfil-btn" class="button-cta">Send Simulated Exfil Payload</button></p>
+  
+  <!-- Result banners -->
+  <div id="result-pass" class="result-banner result-banner-pass">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">✅</span>
+      <span>PASS — Exfil Blocked</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> Your SWG detected and blocked the suspicious query string before data could be exfiltrated.</p>
+      <p><strong>Why this matters:</strong> This demonstrates advanced DLP:</p>
+      <ul>
+        <li>URL parameter inspection (not just POST bodies)</li>
+        <li>Detection of encoded/obfuscated data patterns</li>
+        <li>Prevention of DNS tunneling techniques</li>
+      </ul>
+      <p>Attackers use DNS/HTTP queries to bypass traditional upload blocking. Your perimeter caught it.</p>
+    </div>
+  </div>
+  
+  <div id="result-fail" class="result-banner result-banner-fail">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">❌</span>
+      <span>FAIL — Exfil Succeeded</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> The simulated exfiltration payload reached the server without being blocked.</p>
+      <p><strong>Why this is a critical problem:</strong> DNS/query-string exfiltration bypasses traditional DLP:</p>
+      <ul>
+        <li><strong>Small data chunks:</strong> Sensitive data sent in pieces over time</li>
+        <li><strong>Looks like normal traffic:</strong> HTTP GET requests blend in with legitimate browsing</li>
+        <li><strong>DNS tunneling:</strong> Encodes data in DNS queries (often allowed through firewalls)</li>
+        <li><strong>Evasion technique:</strong> Used by APT groups and ransomware for C2 communication</li>
+      </ul>
+      <p><strong>Real-world impact:</strong></p>
+      <ul>
+        <li>API keys, credentials, session tokens stolen</li>
+        <li>Source code exfiltrated line-by-line</li>
+        <li>Command-and-control channels established</li>
+      </ul>
+      <p><strong>What to check:</strong></p>
+      <ul>
+        <li>Is URL parameter inspection enabled?</li>
+        <li>Does DLP scan query strings for suspicious patterns?</li>
+        <li>Is DNS tunneling detection active?</li>
+        <li>Are unusually long query strings flagged?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Explainer: What this simulation tests -->
+<div class="explainer-box">
+  <h4>💡 What This Simulation Tests</h4>
+  <p>This level validates <strong>DNS/query-string exfiltration detection</strong> — catching data theft that bypasses file upload DLP.</p>
+  <p><strong>The attack technique:</strong></p>
+  <p>Instead of uploading a file (which DLP can block), attackers encode sensitive data and send it via:</p>
+  <ul>
+    <li><strong>HTTP GET query strings:</strong> <code>?data=base64encodedpayload</code></li>
+    <li><strong>DNS queries:</strong> <code>data123.attacker.com</code> (subdomain contains encoded data)</li>
+    <li><strong>WebSocket messages:</strong> JSON payloads over WS connections</li>
+  </ul>
+  <p>Each request carries a small chunk (< 255 bytes for DNS, < 2KB for HTTP). Over time, the entire dataset is exfiltrated.</p>
+  <p>A properly configured SWG should:</p>
+  <ul>
+    <li>Inspect URL query parameters for suspicious patterns</li>
+    <li>Detect Base64/Hex encoded data in URLs</li>
+    <li>Monitor DNS for unusually long subdomains or high query rates</li>
+    <li>Correlate multiple small requests from same source</li>
+  </ul>
+  <p><strong>Real-world examples:</strong></p>
+  <ul>
+    <li><strong>DNSExfiltrator:</strong> Tool used in penetration tests and real attacks</li>
+    <li><strong>iodine:</strong> DNS tunneling tool (also used for bypassing paywalls)</li>
+    <li><strong>Cobalt Strike:</strong> Supports DNS-based C2 channels</li>
+  </ul>
+  <p><strong>Attack Vector:</strong> Used by APT groups, ransomware (for key extraction), and insider threats. Very hard to detect without deep inspection.</p>
+</div>
+
+<!-- Recommendation box -->
+<div class="recommendation-box">
+  <h4>🛡️ Best Practice Recommendations</h4>
+  <p>To detect and prevent DNS/query-string exfiltration:</p>
+  <ul>
+    <li><strong>Enable URL parameter inspection:</strong> Scan all query strings for suspicious patterns</li>
+    <li><strong>DNS tunneling detection:</strong> Monitor for:
+      <ul>
+        <li>Unusually long subdomains (> 64 characters)</li>
+        <li>High DNS query rate from single source</li>
+        <li>Queries to recently-registered domains</li>
+        <li>Non-standard DNS record types (TXT abuse)</li>
+      </ul>
+    </li>
+    <li><strong>Base64/Hex pattern detection:</strong> Flag URLs with long encoded strings</li>
+    <li><strong>Allowlist DNS resolvers:</strong> Only permit queries to approved DNS servers</li>
+    <li><strong>Behavioral analysis:</strong> Alert on unusual outbound traffic patterns</li>
+    <li><strong>DNS firewall:</strong> Block queries to known C2 domains</li>
+    <li><strong>Rate limiting:</strong> Throttle DNS queries per client</li>
+    <li><strong>SIEM integration:</strong> Correlate DNS logs with other security events</li>
+  </ul>
+  <p><strong>Detection challenges:</strong></p>
+  <ul>
+    <li>Legitimate apps use query strings (hard to distinguish from exfil)</li>
+    <li>DNS is essential for network function (can't block completely)</li>
+    <li>Small payloads look innocuous individually</li>
+    <li>Encrypted DNS (DoH, DoT) hides queries from inspection</li>
+  </ul>
+  <p><strong>Defense-in-depth:</strong> Combine SWG inspection with endpoint EDR (detects encoding tools) and network behavior analytics (spots unusual DNS patterns).</p>
+</div>

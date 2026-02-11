@@ -1,12 +1,150 @@
-<h3 id="sim-content-heading">YouTube category links</h3>
-<p>Open each link. Blocked may appear as a block page, redirect, or proxy message depending on the SWG.</p>
-<ul>
-  <li><a href="https://www.youtube.com/feed/trending" target="_blank" rel="noopener">Trending (mixed)</a></li>
-  <li><a href="https://www.youtube.com/feed/trending?bp=4gINGgt5dG1hX2NoYXJ0cw%3D%3D" target="_blank" rel="noopener">Music</a></li>
-  <li><a href="https://www.youtube.com/gaming" target="_blank" rel="noopener">Gaming</a></li>
-  <li><a href="https://www.youtube.com/channel/UCX6OQ3DkcsbYNE6H8uQQuVA" target="_blank" rel="noopener">Entertainment (e.g. The Late Show)</a></li>
-  <li><a href="https://www.youtube.com/education" target="_blank" rel="noopener">Education</a></li>
-  <li><a href="https://www.youtube.com/channel/UCsT0YIqwnpJCM-mx7-gSA4Q" target="_blank" rel="noopener">Science &amp; Technology (e.g. TED)</a></li>
-  <li><a href="https://www.youtube.com/sports" target="_blank" rel="noopener">Sports</a></li>
-  <li><a href="https://www.youtube.com/news" target="_blank" rel="noopener">News</a></li>
-</ul>
+<div class="sim-section">
+  <h3 id="sim-content-heading">YouTube Category Policy Test</h3>
+  <p>Click each category link below. A properly configured SWG should block non-productive categories while allowing business-relevant content.</p>
+  <p><strong>What to watch for:</strong> Blocked links may show a block page, redirect, or proxy message (varies by SWG vendor).</p>
+  
+  <h4 style="margin-top: var(--space-4); font-size: 1.1rem;">Non-Productive Categories (should be blocked):</h4>
+  <ul style="list-style: none; padding: 0;">
+    <li style="margin: var(--space-2) 0;">
+      <a href="https://www.youtube.com/feed/trending?bp=4gINGgt5dG1hX2NoYXJ0cw%3D%3D" target="_blank" rel="noopener" class="button-cta">🎵 Music</a>
+      <span style="font-size: 0.9rem; color: var(--color-text-muted); margin-left: var(--space-2);">(Entertainment)</span>
+    </li>
+    <li style="margin: var(--space-2) 0;">
+      <a href="https://www.youtube.com/gaming" target="_blank" rel="noopener" class="button-cta">🎮 Gaming</a>
+      <span style="font-size: 0.9rem; color: var(--color-text-muted); margin-left: var(--space-2);">(Entertainment)</span>
+    </li>
+    <li style="margin: var(--space-2) 0;">
+      <a href="https://www.youtube.com/sports" target="_blank" rel="noopener" class="button-cta">⚽ Sports</a>
+      <span style="font-size: 0.9rem; color: var(--color-text-muted); margin-left: var(--space-2);">(Entertainment)</span>
+    </li>
+    <li style="margin: var(--space-2) 0;">
+      <a href="https://www.youtube.com/feed/trending" target="_blank" rel="noopener" class="button-cta">📺 Trending</a>
+      <span style="font-size: 0.9rem; color: var(--color-text-muted); margin-left: var(--space-2);">(Mixed content)</span>
+    </li>
+  </ul>
+  
+  <h4 style="margin-top: var(--space-4); font-size: 1.1rem;">Productive Categories (should be allowed):</h4>
+  <ul style="list-style: none; padding: 0;">
+    <li style="margin: var(--space-2) 0;">
+      <a href="https://www.youtube.com/education" target="_blank" rel="noopener" class="button-cta">📚 Education</a>
+      <span style="font-size: 0.9rem; color: var(--color-text-muted); margin-left: var(--space-2);">(Business-relevant)</span>
+    </li>
+    <li style="margin: var(--space-2) 0;">
+      <a href="https://www.youtube.com/channel/UCsT0YIqwnpJCM-mx7-gSA4Q" target="_blank" rel="noopener" class="button-cta">🔬 Science & Technology</a>
+      <span style="font-size: 0.9rem; color: var(--color-text-muted); margin-left: var(--space-2);">(e.g., TED)</span>
+    </li>
+    <li style="margin: var(--space-2) 0;">
+      <a href="https://www.youtube.com/news" target="_blank" rel="noopener" class="button-cta">📰 News</a>
+      <span style="font-size: 0.9rem; color: var(--color-text-muted); margin-left: var(--space-2);">(Business-relevant)</span>
+    </li>
+  </ul>
+  
+  <!-- Manual reporting since we can't auto-detect if links opened -->
+  <div style="margin-top: var(--space-4); padding: var(--space-4); background: var(--color-bg-banner); border-radius: var(--radius); border-left: 4px solid var(--color-primary);">
+    <h4 style="margin-top: 0;">📊 Report Your Results</h4>
+    <p><strong>After testing each link, report the outcome:</strong></p>
+    <p style="margin: var(--space-2) 0;">
+      <button onclick="showResult('pass')" class="button">✅ Most Non-Productive Links Blocked</button>
+    </p>
+    <p style="margin: var(--space-2) 0;">
+      <button onclick="showResult('fail')" class="button-secondary">❌ Most Links Loaded Successfully</button>
+    </p>
+  </div>
+  
+  <!-- Result banners -->
+  <div id="result-pass" class="result-banner result-banner-pass">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">✅</span>
+      <span>PASS — Category Filtering Active</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> Your SWG blocked most or all non-productive YouTube categories.</p>
+      <p><strong>Why this matters:</strong> This demonstrates content categorization and policy enforcement:</p>
+      <ul>
+        <li>URL-based category filtering (entertainment, gaming, sports)</li>
+        <li>Granular policy (allows education/news, blocks entertainment)</li>
+        <li>Productivity enforcement during work hours</li>
+      </ul>
+      <p><strong>Best practice:</strong> Allow productive categories (education, news) while blocking time-wasters. This balances productivity with employee satisfaction.</p>
+    </div>
+  </div>
+  
+  <div id="result-fail" class="result-banner result-banner-fail">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">❌</span>
+      <span>FAIL — Categories Not Filtered</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> Non-productive YouTube categories loaded without being blocked.</p>
+      <p><strong>Why this is a problem:</strong> Without category filtering:</p>
+      <ul>
+        <li><strong>Productivity loss:</strong> Employees spend work hours on entertainment</li>
+        <li><strong>Bandwidth waste:</strong> Video streaming consumes network resources</li>
+        <li><strong>Distraction:</strong> Reduced focus on business tasks</li>
+        <li><strong>Compliance risk:</strong> Some industries require content filtering</li>
+      </ul>
+      <p><strong>What to check:</strong></p>
+      <ul>
+        <li>Is category-based URL filtering enabled in your SWG?</li>
+        <li>Are entertainment/gaming/sports categories blocked?</li>
+        <li>Is YouTube specifically allowed/blocked, or controlled by category?</li>
+        <li>Are time-based policies configured (e.g., allow during lunch)?</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Explainer: What this simulation tests -->
+<div class="explainer-box">
+  <h4>💡 What This Simulation Tests</h4>
+  <p>This level validates <strong>content categorization and URL filtering</strong> — blocking unproductive content while allowing business-relevant resources.</p>
+  <p><strong>Why category filtering matters:</strong></p>
+  <p>Unlike malware or phishing (which are always blocked), cyberslacking content requires <em>selective</em> filtering:</p>
+  <ul>
+    <li><strong>YouTube Education:</strong> Useful for training, tutorials, product demos</li>
+    <li><strong>YouTube Gaming:</strong> Usually not work-related (except game dev companies)</li>
+    <li><strong>YouTube Music:</strong> Productivity debate (some allow with time limits)</li>
+  </ul>
+  <p>A properly configured SWG should:</p>
+  <ul>
+    <li>Categorize URLs automatically (using vendor databases or ML)</li>
+    <li>Apply granular policies per category (not all-or-nothing blocking)</li>
+    <li>Allow exceptions (e.g., permit YouTube Education, block YouTube Gaming)</li>
+    <li>Support time-based rules (looser during lunch/breaks)</li>
+  </ul>
+  <p><strong>Real-world challenge:</strong> YouTube URLs aren't always clearly categorized. A gaming video might be on the main domain, not youtube.com/gaming. Advanced SWGs use content analysis, not just URL patterns.</p>
+  <p><strong>Attack Vector (indirect):</strong> While not a "security threat," uncontrolled access to entertainment sites can lead to phishing (fake giveaways in video descriptions) or malware (malicious ads).</p>
+</div>
+
+<!-- Recommendation box -->
+<div class="recommendation-box">
+  <h4>🛡️ Best Practice Recommendations</h4>
+  <p>To effectively balance productivity and employee satisfaction:</p>
+  <ul>
+    <li><strong>Use category-based filtering, not blanket blocks:</strong>
+      <ul>
+        <li>Allow: Education, news, business/finance, science</li>
+        <li>Block: Gaming, gambling, adult content</li>
+        <li>Limit: Social media, music, sports (time-based or quota)</li>
+      </ul>
+    </li>
+    <li><strong>Implement time-based policies:</strong>
+      <ul>
+        <li>Stricter during business hours (9am-5pm)</li>
+        <li>Looser during lunch (12pm-1pm) and breaks</li>
+        <li>Fully open outside work hours (for bring-your-own-device policies)</li>
+      </ul>
+    </li>
+    <li><strong>Bandwidth management:</strong> Throttle video streaming to prevent network congestion</li>
+    <li><strong>User education:</strong> Publish acceptable use policy (AUP)</li>
+    <li><strong>Exceptions/allowlists:</strong> Marketing team may need YouTube access for research</li>
+    <li><strong>Monitor, don't just block:</strong> Log access attempts to understand employee needs</li>
+  </ul>
+  <p><strong>Legal/HR considerations:</strong></p>
+  <ul>
+    <li>Notify employees of monitoring/filtering policies</li>
+    <li>Don't overblock (can harm morale and productivity)</li>
+    <li>Allow personal use during breaks (many jurisdictions require this)</li>
+  </ul>
+  <p><strong>Trade-off:</strong> Excessive filtering drives employees to mobile data or personal VPNs, bypassing your security entirely. Find a balance.</p>
+</div>
