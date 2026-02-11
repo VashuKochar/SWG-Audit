@@ -1,3 +1,60 @@
-<h3 id="test-url-heading">Test URL access</h3>
-<p><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener" class="button-cta">Known phishing test URL (Palo Alto Networks PAN‑DB)</a></p>
-<p>Opening the link tests blocklist coverage. No data is submitted.</p>
+<div class="sim-section">
+  <h3 id="test-url-heading">Test URL Access</h3>
+  <p><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener" class="button-cta" id="phishing-test-link">Known Phishing Test URL (Palo Alto Networks PAN-DB)</a></p>
+  <p style="font-size: 0.9rem; color: var(--color-text-muted);">Opening the link tests blocklist coverage. No data is submitted.</p>
+  
+  <!-- Result banners (hidden by default, shown by JS) -->
+  <div id="result-pass" class="result-banner result-banner-pass">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">✅</span>
+      <span>PASS — Perimeter Blocked Access</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> Your Secure Web Gateway detected and blocked the known phishing URL before it could load.</p>
+      <p><strong>Why this matters:</strong> This demonstrates that your perimeter is actively checking URLs against updated threat intelligence feeds and blocking known malicious sites.</p>
+    </div>
+  </div>
+  
+  <div id="result-fail" class="result-banner result-banner-fail">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">❌</span>
+      <span>FAIL — Page Loaded Successfully</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> The known phishing URL loaded without being blocked by your perimeter.</p>
+      <p><strong>Why this is a problem:</strong> Known phishing sites should be blocked at the URL filter layer. If this test page loaded, your SWG may not be:</p>
+      <ul>
+        <li>Subscribed to comprehensive threat intelligence feeds</li>
+        <li>Configured to block phishing categories</li>
+        <li>Receiving regular feed updates</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Explainer: What this simulation tests -->
+<div class="explainer-box">
+  <h4>💡 What This Simulation Tests</h4>
+  <p>This level validates <strong>URL reputation filtering</strong> — the first line of defense against phishing attacks.</p>
+  <p>A properly configured SWG should:</p>
+  <ul>
+    <li>Maintain up-to-date threat intelligence feeds</li>
+    <li>Block access to URLs categorized as "phishing" or "malicious"</li>
+    <li>Present a block page instead of allowing the connection</li>
+  </ul>
+  <p><strong>Attack Vector:</strong> Phishing emails often contain links to known malicious domains. Blocklist-based filtering is the most basic but essential control.</p>
+</div>
+
+<!-- Recommendation box -->
+<div class="recommendation-box">
+  <h4>🛡️ Best Practice Recommendations</h4>
+  <p>To ensure your SWG effectively blocks phishing URLs:</p>
+  <ul>
+    <li><strong>Enable phishing category blocking</strong> in your URL filtering policy</li>
+    <li><strong>Subscribe to reputable threat intelligence feeds</strong> (e.g., Palo Alto PAN-DB, Cisco Talos, Webroot BrightCloud)</li>
+    <li><strong>Configure automatic feed updates</strong> (hourly or more frequently)</li>
+    <li><strong>Test regularly</strong> — threat feeds vary in coverage and update frequency</li>
+    <li><strong>Layer controls</strong> — URL filtering alone is not sufficient; combine with payload inspection (L2/L3)</li>
+  </ul>
+  <p><strong>Note:</strong> Blocklist coverage is vendor-dependent. No single feed catches 100% of phishing sites.</p>
+</div>

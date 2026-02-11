@@ -1,15 +1,27 @@
-(function () {
+// Load shared result helper
+(function() {
+  var script = document.createElement('script');
+  script.src = '/js/shared/result-helper.js';
+  script.onload = function() {
+    initFormTest();
+  };
+  document.head.appendChild(script);
+})();
+
+function initFormTest() {
   var form = document.getElementById('credential-form');
-  var result = document.getElementById('result');
   var resetBtn = document.getElementById('reset');
-  var interpretation = document.getElementById('interpretation');
 
   if (!form) return;
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+    
+    // Hide any previous results
+    hideResults();
+    
     var formData = new FormData(form);
-    interpretation.hidden = true;
+    
     fetch(form.action, {
       method: 'POST',
       body: new URLSearchParams(formData),
@@ -17,28 +29,23 @@
     })
       .then(function (r) {
         if (r.ok) {
-          result.textContent = 'Perimeter Security Failed – This form submission should have been blocked. (Credentials reached server.)';
-          result.className = 'error';
-          interpretation.textContent = 'If failed: review form submission and POST policies in the SWG.';
-          interpretation.hidden = false;
+          // Submission succeeded = perimeter failed to block
+          showResult('fail');
         } else {
-          result.textContent = 'Submission blocked or failed. Perimeter may have passed.';
-          result.className = 'success';
+          // Submission blocked or failed = perimeter passed
+          showResult('pass');
         }
-        result.hidden = false;
       })
-      .catch(function () {
-        result.textContent = 'Request failed or blocked. Perimeter may have passed.';
-        result.className = 'success';
-        result.hidden = false;
+      .catch(function (err) {
+        // Network error or blocked = perimeter passed
+        showResult('pass');
       });
   });
 
   if (resetBtn) {
     resetBtn.addEventListener('click', function () {
-      result.hidden = true;
-      interpretation.hidden = true;
+      hideResults();
       form.reset();
     });
   }
-})();
+}

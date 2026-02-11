@@ -1,4 +1,66 @@
-<h3 id="sim-content-heading">Simulation</h3>
-<p>This page simulates a lookalike login or spoofing‑style URL. The perimeter detects URL spoofing and blocks or warns before a credential form is reached.</p>
-<p><strong>No credential form on this level.</strong> Proceed to Level 3 to test form submission block.</p>
-<p><a href="/phishing/level3/" class="button-cta">Level 3: Credential submission</a></p>
+<div class="sim-section">
+  <h3 id="sim-content-heading">Simulation Active</h3>
+  <p>This page simulates a lookalike login or spoofing-style URL. A properly configured perimeter should detect URL spoofing techniques and block or warn before you reach this page.</p>
+  <p><strong>If you're reading this:</strong> The perimeter allowed access without blocking or warning.</p>
+  
+  <!-- Auto-show fail banner since user reached the page -->
+  <div id="result-fail" class="result-banner result-banner-fail show">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">❌</span>
+      <span>FAIL — You Reached This Page</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> You accessed this simulation page without being blocked or warned by your perimeter.</p>
+      <p><strong>Why this is a problem:</strong> This URL pattern simulates common phishing techniques:</p>
+      <ul>
+        <li><strong>Subdomain abuse</strong> — e.g., <code>login-paypal.phishing-test.com</code></li>
+        <li><strong>Typosquatting</strong> — e.g., <code>paypai.com</code></li>
+        <li><strong>Homograph attacks</strong> — Unicode lookalike characters</li>
+      </ul>
+      <p>Advanced SWGs analyze URL structure, not just domain reputation. If you reached this page, your perimeter may not have heuristic or ML-based URL analysis enabled.</p>
+    </div>
+  </div>
+  
+  <div id="result-pass" class="result-banner result-banner-pass">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">✅</span>
+      <span>PASS — Perimeter Blocked or Warned</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> Your perimeter detected the suspicious URL pattern and either blocked access or presented a warning page.</p>
+      <p><strong>Why this matters:</strong> URL spoofing detection is a second layer of phishing defense, catching threats that bypass reputation-based filters (Level 1).</p>
+    </div>
+  </div>
+  
+  <p style="margin-top: var(--space-4);"><strong>Note:</strong> This level does not include a credential form. Proceed to Level 3 to test form submission blocking.</p>
+  <p><a href="/phishing/level3/" class="button-cta">Continue to Level 3: Credential Submission</a></p>
+</div>
+
+<!-- Explainer: What this simulation tests -->
+<div class="explainer-box">
+  <h4>💡 What This Simulation Tests</h4>
+  <p>This level validates <strong>URL structure analysis</strong> — detecting phishing attempts that use lookalike domains instead of known-bad URLs.</p>
+  <p>A properly configured SWG should:</p>
+  <ul>
+    <li>Analyze subdomain patterns (e.g., <code>secure-login.legitimate-brand.attacker.com</code>)</li>
+    <li>Detect typosquatting (e.g., <code>goog1e.com</code> instead of <code>google.com</code>)</li>
+    <li>Identify homograph attacks (Unicode characters that look like Latin letters)</li>
+    <li>Present a warning or block page for high-risk patterns</li>
+  </ul>
+  <p><strong>Attack Vector:</strong> Attackers register new domains that mimic legitimate brands but aren't yet in reputation databases. URL structure analysis catches these zero-hour threats.</p>
+</div>
+
+<!-- Recommendation box -->
+<div class="recommendation-box">
+  <h4>🛡️ Best Practice Recommendations</h4>
+  <p>To ensure your SWG effectively detects URL spoofing:</p>
+  <ul>
+    <li><strong>Enable heuristic URL analysis</strong> — most modern SWGs have ML-based detection</li>
+    <li><strong>Configure brand protection</strong> — whitelist your organization's domains and flag lookalikes</li>
+    <li><strong>Use DNS filtering</strong> in addition to HTTP(S) inspection</li>
+    <li><strong>Enable user warnings</strong> for medium-confidence threats (not just hard blocks)</li>
+    <li><strong>Train users</strong> on URL inspection — even with tech controls, human awareness matters</li>
+    <li><strong>Layer with endpoint protection</strong> — browser-based phishing detection adds defense-in-depth</li>
+  </ul>
+  <p><strong>Important:</strong> Level 1 (reputation) + Level 2 (structure) work together. Both layers are needed for comprehensive phishing defense.</p>
+</div>

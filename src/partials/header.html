@@ -6,7 +6,7 @@
       </a>
       <h1>SWG Audit</h1>
     </div>
-    <nav>
+    <nav id="main-nav" class="header-nav">
       <a href="/phishing/">Phishing</a>
       <a href="/malware/">Malware</a>
       <a href="/data-theft/">Data Theft</a>
@@ -15,9 +15,16 @@
     <div class="header-secondary">
       <a href="/about/">About Us</a>
       <a href="/contribute/">Contribute</a>
+      <button id="dark-mode-toggle" class="dark-mode-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span class="dark-mode-icon">🌙</span>
+      </button>
       <a href="https://github.com/swgauditor/swgaudit" class="header-github" rel="noopener" aria-label="GitHub repository">
         <img src="/images/github-mark.svg" width="24" height="24" alt="" aria-hidden="true">
       </a>
+      <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span class="hamburger-icon"></span>
+      </button>
     </div>
   </div>
+  <div id="mobile-menu-overlay" class="mobile-menu-overlay" hidden></div>
 </header>

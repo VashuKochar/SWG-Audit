@@ -1,19 +1,102 @@
-<h3 id="sim-content-heading">Simulation</h3>
-<form id="credential-form" action="/phishing/submit" method="post">
-  <fieldset>
-    <legend class="visually-hidden">Credential test form</legend>
-    <p>
-      <label for="username">Username</label><br>
-      <input type="text" id="username" name="username" placeholder="Username">
-    </p>
-    <p>
-      <label for="password">Password</label><br>
-      <input type="password" id="password" name="password" placeholder="Password">
-    </p>
-    <p>Submitted data is immediately discarded.</p>
-    <button type="submit">Submit</button>
-  </fieldset>
-</form>
-<p id="result" hidden></p>
-<p id="interpretation" hidden></p>
-<p><button type="button" id="reset">Reset test</button></p>
+<div class="sim-section">
+  <h3 id="sim-content-heading">Credential Submission Test</h3>
+  <p>This simulates a phishing credential form. Enter any test data and submit. A properly configured SWG should block POST requests containing credential patterns.</p>
+  
+  <form id="credential-form" action="/phishing/submit" method="post">
+    <fieldset>
+      <legend>Test Credential Form</legend>
+      <p>
+        <label for="username">Username</label><br>
+        <input type="text" id="username" name="username" placeholder="test@example.com" autocomplete="off">
+      </p>
+      <p>
+        <label for="password">Password</label><br>
+        <input type="password" id="password" name="password" placeholder="test123" autocomplete="off">
+      </p>
+      <p style="font-size: 0.9rem; color: var(--color-text-muted);">
+        <strong>Privacy note:</strong> Any data you enter is immediately discarded by the server. We never log or store credentials.
+      </p>
+      <button type="submit">Submit Test Credentials</button>
+    </fieldset>
+  </form>
+  
+  <!-- Result banners -->
+  <div id="result-pass" class="result-banner result-banner-pass">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">✅</span>
+      <span>PASS — Submission Blocked</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> Your Secure Web Gateway blocked the form submission before credentials could reach the server.</p>
+      <p><strong>Why this matters:</strong> This demonstrates Layer 3 phishing protection:</p>
+      <ul>
+        <li>POST request inspection</li>
+        <li>Credential pattern detection (username + password fields)</li>
+        <li>Form submission blocking on suspicious pages</li>
+      </ul>
+      <p>Even if a user reaches a phishing page and enters credentials, the SWG prevents data exfiltration.</p>
+    </div>
+  </div>
+  
+  <div id="result-fail" class="result-banner result-banner-fail">
+    <div class="result-banner-header">
+      <span class="result-banner-icon">❌</span>
+      <span>FAIL — Credentials Reached Server</span>
+    </div>
+    <div class="result-banner-body">
+      <p><strong>What happened:</strong> The form submission succeeded. Credentials reached the server.</p>
+      <p><strong>Why this is a problem:</strong> Your perimeter did not block the POST request containing credential data. In a real attack:</p>
+      <ul>
+        <li>User credentials would be stolen</li>
+        <li>Attacker gains account access</li>
+        <li>MFA bypass possible (session cookies stolen)</li>
+      </ul>
+      <p><strong>What to check:</strong></p>
+      <ul>
+        <li>Is form submission inspection enabled in your SWG?</li>
+        <li>Are POST policies configured to block credential patterns?</li>
+        <li>Is DLP (Data Loss Prevention) active for outbound data?</li>
+      </ul>
+    </div>
+  </div>
+  
+  <p style="margin-top: var(--space-4);">
+    <button type="button" id="reset" class="button-secondary">Reset Test</button>
+  </p>
+</div>
+
+<!-- Explainer: What this simulation tests -->
+<div class="explainer-box">
+  <h4>💡 What This Simulation Tests</h4>
+  <p>This level validates <strong>form submission blocking</strong> — the final layer of phishing defense.</p>
+  <p>Layered phishing defenses:</p>
+  <ul>
+    <li><strong>L1 (URL Reputation):</strong> Block known phishing sites</li>
+    <li><strong>L2 (URL Structure):</strong> Detect lookalike domains</li>
+    <li><strong>L3 (Form Submission):</strong> Block credential theft even if user reaches the page</li>
+  </ul>
+  <p>A properly configured SWG should:</p>
+  <ul>
+    <li>Inspect HTTP POST bodies for credential patterns</li>
+    <li>Block submissions containing username/email + password fields</li>
+    <li>Prevent data exfiltration even on "clean" domains</li>
+    <li>Work alongside DLP policies</li>
+  </ul>
+  <p><strong>Attack Vector:</strong> Even with URL filtering, users can be tricked into entering credentials on compromised or newly-registered domains. Form submission blocking is the last line of defense.</p>
+</div>
+
+<!-- Recommendation box -->
+<div class="recommendation-box">
+  <h4>🛡️ Best Practice Recommendations</h4>
+  <p>To ensure your SWG effectively blocks credential theft:</p>
+  <ul>
+    <li><strong>Enable form submission inspection</strong> — deep packet inspection of POST bodies</li>
+    <li><strong>Configure DLP rules</strong> for credential patterns (username + password combos)</li>
+    <li><strong>Block submissions to uncategorized domains</strong> — require approval for new sites</li>
+    <li><strong>Alert on suspicious form activity</strong> — even if not blocking, log for investigation</li>
+    <li><strong>Use SSL/TLS inspection</strong> — can't inspect HTTPS POST without decryption</li>
+    <li><strong>Layer with endpoint protection</strong> — browser extensions can warn before form submission</li>
+    <li><strong>Implement phishing-resistant MFA</strong> — FIDO2/WebAuthn prevents credential theft impact</li>
+  </ul>
+  <p><strong>Trade-off:</strong> Form submission blocking can cause false positives on legitimate sites. Tune policies carefully and use allowlists for trusted domains.</p>
+</div>
