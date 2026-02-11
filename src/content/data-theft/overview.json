@@ -8,8 +8,8 @@
   "subline": "DLP and SWG controls block or disrupt file uploads and DNS tunnelling. File upload (Level 1–2), DLP signatures, DNS exfil. Max file size 1 KB. Max 5 uploads per session. Files are deleted from the server after 10 minutes. Run from a device that routes through the perimeter under test.",
   "image": "/images/data-theft.webp",
   "levels": [
-    { "path": "level1", "title": "Level 1: File upload types" },
-    { "path": "level2", "title": "Level 2: DLP signatures" },
-    { "path": "level3", "title": "Level 3: DNS exfil" }
+    { "path": "level1", "title": "Level 1: File upload types", "difficulty": "beginner", "duration": "~3 min" },
+    { "path": "level2", "title": "Level 2: DLP signatures", "difficulty": "intermediate", "duration": "~4 min" },
+    { "path": "level3", "title": "Level 3: DNS exfil", "difficulty": "advanced", "duration": "~5 min" }
   ]
 }

@@ -9,8 +9,8 @@
   "instructions": "Configure URL filters to block phishing websites, while allowing swgaudit.com for testing.",
   "image": "/images/phishing.webp",
   "levels": [
-    { "path": "level1", "title": "Level 1: Known phishing" },
-    { "path": "level2", "title": "Level 2: URL spoofing" },
-    { "path": "level3", "title": "Level 3: Credential submission" }
+    { "path": "level1", "title": "Level 1: Known phishing", "difficulty": "beginner", "duration": "~2 min" },
+    { "path": "level2", "title": "Level 2: URL spoofing", "difficulty": "intermediate", "duration": "~3 min" },
+    { "path": "level3", "title": "Level 3: Credential submission", "difficulty": "advanced", "duration": "~5 min" }
   ]
 }

@@ -8,6 +8,6 @@
   "subline": "This simulation tests category and URL policy at the perimeter (SWG), not endpoint or device controls. Simulation uses YouTube only. When the SWG blocks non‑productive categories, some links will be blocked. All links load = perimeter may not enforce video‑level restrictions. Run from a device that routes through the perimeter under test.",
   "image": "/images/cyberslacking.webp",
   "levels": [
-    { "path": "level1", "title": "Level 1: YouTube category links" }
+    { "path": "level1", "title": "Level 1: YouTube category links", "difficulty": "beginner", "duration": "~2 min" }
   ]
 }
