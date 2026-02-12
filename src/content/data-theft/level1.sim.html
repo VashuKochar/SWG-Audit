@@ -1,6 +1,6 @@
 <div class="sim-section">
   <h3 id="sim-content-heading">File Upload Test</h3>
-  <p>Attempt to upload a file. A properly configured SWG with DLP should block or inspect outbound file uploads.</p>
+  <p>Attempt to upload a file. A properly configured SWG with <span class="tooltip-trigger">DLP<span class="tooltip-icon">?</span><span class="tooltip-content">Data Loss Prevention — technology that detects and blocks sensitive data from being transmitted outside your network through email, uploads, or other channels.</span></span> should block or inspect outbound file uploads.</p>
   
   <form id="upload-form">
     <div id="file-choice" class="data-theft-choice">
@@ -85,9 +85,9 @@
   <p>This level validates <strong>outbound file upload blocking</strong> — preventing unauthorized data from leaving your network.</p>
   <p>A properly configured SWG should:</p>
   <ul>
-    <li>Inspect HTTP POST requests containing file uploads</li>
+    <li>Inspect <span class="tooltip-trigger">HTTP POST requests<span class="tooltip-icon">?</span><span class="tooltip-content">POST is the HTTP method used to upload files to web servers. Unlike GET (which retrieves data), POST sends data from client to server.</span></span> containing file uploads</li>
     <li>Block uploads based on file type, size, or content</li>
-    <li>Apply DLP policies to prevent sensitive data exfiltration</li>
+    <li>Apply DLP policies to prevent sensitive <span class="tooltip-trigger">data exfiltration<span class="tooltip-icon">?</span><span class="tooltip-content">The unauthorized transfer of data from inside a network to an external location. Can be done by insiders (employees) or attackers after a breach.</span></span></li>
     <li>Log and alert on blocked upload attempts</li>
   </ul>
   <p><strong>Attack Vector:</strong> Insider threats and compromised accounts often use file uploads to exfiltrate data. Common targets:</p>
@@ -105,14 +105,14 @@
   <h4>🛡️ Best Practice Recommendations</h4>
   <p>To ensure your SWG effectively prevents data exfiltration:</p>
   <ul>
-    <li><strong>Enable DLP policies</strong> — block uploads containing PII, credit cards, SSNs, API keys</li>
+    <li><strong>Enable DLP policies</strong> — block uploads containing <span class="tooltip-trigger">PII<span class="tooltip-icon">?</span><span class="tooltip-content">Personally Identifiable Information — data that can identify a specific individual (name, email, phone, SSN, address). Regulated by GDPR, CCPA, and other privacy laws.</span></span>, credit cards, SSNs, API keys</li>
     <li><strong>File type restrictions</strong> — block executable uploads (.exe, .dll, .scr)</li>
-    <li><strong>Content fingerprinting</strong> — detect sensitive documents by signature, not just filename</li>
+    <li><strong><span class="tooltip-trigger">Content fingerprinting<span class="tooltip-icon">?</span><span class="tooltip-content">A technique that creates unique signatures (hashes) of sensitive documents. Detects when these documents are uploaded, even if renamed or slightly modified.</span></span></strong> — detect sensitive documents by signature, not just filename</li>
     <li><strong>Size limits</strong> — flag unusually large uploads for review</li>
     <li><strong>Allowlist trusted destinations</strong> — permit uploads to approved cloud services only</li>
     <li><strong>User education</strong> — train employees on acceptable use policies</li>
     <li><strong>Audit logs</strong> — retain upload attempts for forensic analysis</li>
-    <li><strong>SSL/TLS inspection required</strong> — can't inspect HTTPS uploads without decryption</li>
+    <li><strong><span class="tooltip-trigger">SSL/TLS inspection<span class="tooltip-icon">?</span><span class="tooltip-content">The process of decrypting HTTPS traffic at the gateway to inspect content, then re-encrypting it. Required to see inside encrypted uploads. Also called "SSL interception" or "HTTPS inspection".</span></span> required</strong> — can't inspect HTTPS uploads without decryption</li>
   </ul>
   <p><strong>Note:</strong> Level 2 tests DLP signature detection. Level 3 tests DNS-based exfiltration (bypass technique).</p>
 </div>

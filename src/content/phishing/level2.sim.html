@@ -1,6 +1,6 @@
 <div class="sim-section">
   <h3 id="sim-content-heading">Simulation Active</h3>
-  <p>This page simulates a lookalike login or spoofing-style URL. A properly configured perimeter should detect URL spoofing techniques and block or warn before you reach this page.</p>
+  <p>This page simulates a lookalike login or <span class="tooltip-trigger">spoofing-style URL<span class="tooltip-icon">?</span><span class="tooltip-content">A fake URL designed to look like a legitimate website (e.g., paypa1.com instead of paypal.com). Used in phishing attacks to trick users into entering credentials.</span></span>. A properly configured perimeter should detect URL spoofing techniques and block or warn before you reach this page.</p>
   <p><strong>If you're reading this:</strong> The perimeter allowed access without blocking or warning.</p>
   
   <!-- Auto-show fail banner since user reached the page -->
@@ -43,21 +43,21 @@
   <p>A properly configured SWG should:</p>
   <ul>
     <li>Analyze subdomain patterns (e.g., <code>secure-login.legitimate-brand.attacker.com</code>)</li>
-    <li>Detect typosquatting (e.g., <code>goog1e.com</code> instead of <code>google.com</code>)</li>
-    <li>Identify homograph attacks (Unicode characters that look like Latin letters)</li>
+    <li>Detect <span class="tooltip-trigger">typosquatting<span class="tooltip-icon">?</span><span class="tooltip-content">Registering domains with common typos of legitimate brands (goog1e.com, paypa1.com). Users who mistype URLs land on phishing sites.</span></span> (e.g., <code>goog1e.com</code> instead of <code>google.com</code>)</li>
+    <li>Identify <span class="tooltip-trigger">homograph attacks<span class="tooltip-icon">?</span><span class="tooltip-content">Using Unicode characters that look identical to Latin letters (Cyrillic 'а' vs Latin 'a'). Creates visually identical but technically different URLs. Example: аpple.com (Cyrillic а) vs apple.com.</span></span> (Unicode characters that look like Latin letters)</li>
     <li>Present a warning or block page for high-risk patterns</li>
   </ul>
-  <p><strong>Attack Vector:</strong> Attackers register new domains that mimic legitimate brands but aren't yet in reputation databases. URL structure analysis catches these zero-hour threats.</p>
+  <p><strong>Attack Vector:</strong> Attackers register new domains that mimic legitimate brands but aren't yet in reputation databases. URL structure analysis catches these <span class="tooltip-trigger">zero-hour threats<span class="tooltip-icon">?</span><span class="tooltip-content">Brand-new threats that security vendors haven't catalogued yet. Traditional blocklists can't catch them because they've never been seen before.</span></span>.</p>
 </div>
 
 <!-- Recommendation box -->
-<div class="recommendation-box">
+<parameter name="recommendation-box">
   <h4>🛡️ Best Practice Recommendations</h4>
   <p>To ensure your SWG effectively detects URL spoofing:</p>
   <ul>
-    <li><strong>Enable heuristic URL analysis</strong> — most modern SWGs have ML-based detection</li>
+    <li><strong>Enable <span class="tooltip-trigger">heuristic URL analysis<span class="tooltip-icon">?</span><span class="tooltip-content">Pattern-based detection that analyzes URL structure, subdomain depth, character substitutions, and other suspicious traits without needing a blocklist entry.</span></span></strong> — most modern SWGs have <span class="tooltip-trigger">ML-based detection<span class="tooltip-icon">?</span><span class="tooltip-content">Machine Learning algorithms trained on millions of phishing URLs. They identify suspicious patterns even in brand-new domains.</span></span></li>
     <li><strong>Configure brand protection</strong> — whitelist your organization's domains and flag lookalikes</li>
-    <li><strong>Use DNS filtering</strong> in addition to HTTP(S) inspection</li>
+    <li><strong>Use <span class="tooltip-trigger">DNS filtering<span class="tooltip-icon">?</span><span class="tooltip-content">Blocking malicious domains at the DNS resolution level (before HTTP connection). Faster and works even for non-HTTP protocols.</span></span></strong> in addition to HTTP(S) inspection</li>
     <li><strong>Enable user warnings</strong> for medium-confidence threats (not just hard blocks)</li>
     <li><strong>Train users</strong> on URL inspection — even with tech controls, human awareness matters</li>
     <li><strong>Layer with endpoint protection</strong> — browser-based phishing detection adds defense-in-depth</li>

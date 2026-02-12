@@ -1,6 +1,6 @@
 <div class="sim-section">
   <h3 id="sim-content-heading">Credential Submission Test</h3>
-  <p>This simulates a phishing credential form. Enter any test data and submit. A properly configured SWG should block POST requests containing credential patterns.</p>
+  <p>This simulates a phishing credential form. Enter any test data and submit. A properly configured SWG should block <span class="tooltip-trigger">POST requests<span class="tooltip-icon">?</span><span class="tooltip-content">HTTP requests that send data to a server (login forms, file uploads). Unlike GET (which only retrieves data), POST transmits user input to the destination.</span></span> containing <span class="tooltip-trigger">credential patterns<span class="tooltip-icon">?</span><span class="tooltip-content">Username and password field combinations detected by analyzing form field names, types, and content patterns (email@domain.com format, password field types).</span></span>.</p>
   
   <form id="credential-form" action="/phishing/submit" method="post">
     <fieldset>
