@@ -2,8 +2,8 @@
   "title": "SWG Audit – Validate perimeter controls with evidence",
   "description": "Validate perimeter controls with evidence, not vendor claims. Safe, repeatable Layer‑7 simulations for phishing, malware, and data exfiltration. Audit‑ready evidence for compliance and regulatory reviews.",
   "keywords": "SWG Audit, perimeter security, web security, phishing test, malware test, EICAR, Secure Web Gateway, zero‑day, Layer‑7",
-  "headline": "Test the real-world effectiveness of your perimeter security against Zero‑Hour web threats",
-  "subline": "Run safe deterministic Layer‑7 attack simulations against your live SWG",
+  "headline": "Test the real-world effectiveness of your perimeter security against <span class=\"tooltip-trigger\">Zero‑Hour<span class=\"tooltip-icon\">?</span><span class=\"tooltip-content\">Brand-new threats that security vendors haven't catalogued yet. The time window between threat emergence and vendor protection can last hours or days.</span></span> web threats",
+  "subline": "Run safe deterministic <span class=\"tooltip-trigger\">Layer‑7<span class=\"tooltip-icon\">?</span><span class=\"tooltip-content\">Application layer (HTTP/HTTPS) where actual web content is transmitted. Layer 7 inspection can see URLs, file content, form data — not just IP addresses and ports.</span></span> attack simulations against your live <span class=\"tooltip-trigger\">SWG<span class=\"tooltip-icon\">?</span><span class=\"tooltip-content\">Secure Web Gateway — a security solution that filters web traffic, enforces policies, and protects against web-based threats in real-time.</span></span>",
   "instructions": "Set SWG Audit inline to perimeter security / Get audit-ready evidence in minutes",
   "categories": [
     { "href": "/phishing/", "image": "/images/phishing.webp", "title": "Phishing" },

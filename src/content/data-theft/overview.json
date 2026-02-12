@@ -5,7 +5,7 @@
   "category": "Data Theft",
   "slug": "data-theft",
   "headline": "Validate the real-world effectiveness of your perimeter security against Data Theft",
-  "subline": "DLP and SWG controls block or disrupt file uploads and DNS tunnelling. File upload (Level 1–2), DLP signatures, DNS exfil. Max file size 1 KB. Max 5 uploads per session. Files are deleted from the server after 10 minutes. Run from a device that routes through the perimeter under test.",
+  "subline": "<span class=\"tooltip-trigger\">DLP<span class=\"tooltip-icon\">?</span><span class=\"tooltip-content\">Data Loss Prevention — technology that detects and blocks sensitive data from being transmitted outside your network through email, uploads, or other channels.</span></span> and <span class=\"tooltip-trigger\">SWG<span class=\"tooltip-icon\">?</span><span class=\"tooltip-content\">Secure Web Gateway — a security solution that filters web traffic, enforces policies, and protects against web-based threats in real-time.</span></span> controls block or disrupt file uploads and <span class=\"tooltip-trigger\">DNS tunnelling<span class=\"tooltip-icon\">?</span><span class=\"tooltip-content\">A technique that encodes data inside DNS queries to exfiltrate information. Works because DNS traffic is often less monitored than HTTP/HTTPS.</span></span>. File upload (Level 1–2), DLP signatures, DNS exfil. Max file size 1 KB. Max 5 uploads per session. Files are deleted from the server after 10 minutes. Run from a device that routes through the perimeter under test.",
   "image": "/images/data-theft.webp",
   "levels": [
     { "path": "level1", "title": "Level 1: File upload types", "difficulty": "beginner", "duration": "~3 min" },
