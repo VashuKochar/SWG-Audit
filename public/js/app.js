@@ -43,10 +43,8 @@
   }
   
   function updateDarkModeIcon(theme) {
-    var icon = document.querySelector('.dark-mode-icon');
-    if (icon) {
-      icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    }
+    // Icons are now toggled via CSS using [data-theme] attribute
+    // No need to manually update icons - CSS handles the transition
   }
   
   // ========== Mobile Menu ==========
