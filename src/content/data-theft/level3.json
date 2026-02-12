@@ -3,8 +3,22 @@
   "description": "Data theft simulation: DNS exfil. Small payload sent to server. Request succeeds = perimeter did not block. Request blocked = review SWG or DNS logs.",
   "keywords": "SWG Audit, data theft test, DNS exfil, exfiltration, perimeter security",
   "headline": "Data Theft – Level 3: DNS exfil simulation",
-  "subline": "Simulated exfil: a small payload is sent to the server. Request succeeds = perimeter did not block DNS‑style exfiltration.",
-  "instructions": "Configure the perimeter to allow this site. Security must detect and block DNS tunnelling or encoded data exfiltration in query parameters.",
+  "testObjective": "Test whether your SWG can detect and block DNS tunneling and encoded data exfiltration attempts hidden in URL query parameters.",
+  "attackVector": "Attackers encode sensitive data in DNS queries or HTTP request parameters to bypass traditional DLP inspection, as these channels often receive less scrutiny than file uploads.",
+  "steps": [
+    {
+      "title": "Configure your SWG",
+      "description": "Whitelist swgaudit.com to allow access to this page. Your SWG should monitor query parameters for suspicious patterns."
+    },
+    {
+      "title": "Verify your identity",
+      "description": "Submit your business email to unlock the simulation."
+    },
+    {
+      "title": "Run the test",
+      "description": "Trigger the simulated exfiltration request. If your SWG blocks it, check logs for the detection. If the request succeeds and reaches our server, your perimeter failed to detect DNS-style exfiltration."
+    }
+  ],
   "feedbackFail": "Exfil request reached server = perimeter did not block DNS‑style exfiltration.",
   "feedbackPass": "Request blocked or failed = perimeter passed."
 }

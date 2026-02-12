@@ -3,8 +3,22 @@
   "description": "Phishing Level 2: URL spoofing simulation. Tests whether the perimeter detects lookalike or spoofing‑style URLs.",
   "keywords": "SWG Audit, phishing level 2, URL spoofing, typosquatting, homographs",
   "headline": "Phishing – Level 2: URL spoofing",
-  "subline": "Tests whether the perimeter detects lookalike or spoofing‑style URLs.",
-  "instructions": "Configure the perimeter to allow this site. Security must detect URL spoofing (subdomain abuse, typosquatting, homographs) and block or warn before a credential form is reached.",
+  "testObjective": "Test whether your SWG detects lookalike and spoofing-style URLs using subdomain abuse, typosquatting, and homographs.",
+  "attackVector": "Attackers register domains that visually resemble legitimate brands to bypass URL reputation filters that only check exact domain matches.",
+  "steps": [
+    {
+      "title": "Configure your SWG",
+      "description": "Whitelist swgaudit.com to allow access to this page. Your SWG should inspect URLs for spoofing patterns."
+    },
+    {
+      "title": "Verify your identity",
+      "description": "Submit your business email to unlock the simulation."
+    },
+    {
+      "title": "Run the test",
+      "description": "Click the spoofed URL. If your SWG blocks or warns you, it detected the spoofing. If the page loads normally, your SWG failed to detect this lookalike domain."
+    }
+  ],
   "feedbackFail": "This page visible without a warning = perimeter may not detect this path as a spoofing risk.",
   "feedbackPass": "Blocked or warned = perimeter passed."
 }

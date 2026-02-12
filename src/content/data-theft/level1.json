@@ -3,8 +3,22 @@
   "description": "Data theft simulation: file upload types. Upload allowed = perimeter may have failed. Blocked = passed. Max 1 KB.",
   "keywords": "SWG Audit, data theft test, file upload, perimeter security",
   "headline": "Data Theft – Level 1: File upload types",
-  "subline": "Upload allowed = perimeter may have failed. Blocked = passed. Use a sample file or upload your own (max 1 KB). File deleted from the server after 10 minutes.",
-  "instructions": "Configure the perimeter to allow this site. Security must block or inspect outbound file uploads. Upload succeeds = perimeter failed to intercept the upload.",
+  "testObjective": "Test whether your SWG can detect and block outbound file uploads to prevent data exfiltration.",
+  "attackVector": "Insiders or compromised endpoints can exfiltrate sensitive data via file uploads to cloud storage, webmail, or anonymous file-sharing sites.",
+  "steps": [
+    {
+      "title": "Configure your SWG",
+      "description": "Whitelist swgaudit.com to allow access to this page. Your SWG should monitor and block file uploads based on type or content."
+    },
+    {
+      "title": "Verify your identity",
+      "description": "Submit your business email to unlock the simulation."
+    },
+    {
+      "title": "Run the test",
+      "description": "Select a sample file or upload your own (max 1 KB). If your SWG blocks the upload, it passed. If the upload succeeds, your SWG failed to intercept it. Uploaded files are deleted after 10 minutes."
+    }
+  ],
   "feedbackFail": "File upload succeeded = perimeter may have failed to block the upload.",
   "feedbackPass": "Upload blocked or failed = perimeter passed."
 }

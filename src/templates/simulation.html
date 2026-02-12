@@ -35,17 +35,49 @@
 
   <main id="main-content" class="landing-hero">
     <div class="landing-hero-inner">
+      <!-- Breadcrumbs -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">→</span>
+        <a href="{{returnUrl}}">{{category}}</a>
+        <span aria-hidden="true">→</span>
+        <span aria-current="page">{{headline}}</span>
+      </nav>
+
+      <!-- Page Header with Metadata -->
+      <div class="page-meta">
+        {{levelBadge}}
+        {{durationBadge}}
+      </div>
       <h2 id="hero-heading" class="landing-hero-headline">{{headline}}</h2>
-      <p class="landing-hero-subline">{{subline}}</p>
-      <div class="layout-two-column">
-        <div class="simulation-instructions-block">
-          <h3 id="sim-instructions-heading">Simulation instructions</h3>
-          <p>{{instructions}}</p>
-          <div class="simulation-feedback">
-            <p class="error">{{feedbackFail}}</p>
-            <p class="success">{{feedbackPass}}</p>
+
+      <!-- Section 1: What You're Testing -->
+      <section class="test-objective-section">
+        <div class="test-objective-item">
+          <div class="test-objective-label">
+            <span aria-hidden="true">🎯</span>
+            <span>Test Objective</span>
           </div>
+          <p>{{testObjective}}</p>
         </div>
+        <div class="test-objective-item">
+          <div class="test-objective-label">
+            <span aria-hidden="true">⚡</span>
+            <span>Attack Vector</span>
+          </div>
+          <p>{{attackVector}}</p>
+        </div>
+      </section>
+
+      <!-- Section 2: How to Run This Test -->
+      <section class="instruction-steps">
+        <h3 class="simulation-section-title">How to Run This Test</h3>
+        {{instructionSteps}}
+      </section>
+
+      <!-- Section 3: Run Simulation -->
+      <section class="simulation-section">
+        <h3 class="simulation-section-title">Run Simulation</h3>
         <div class="simulation-box">
           <div id="sim-gate" class="simulation-box-gate">
             <p>Verify to run this simulation.</p>
@@ -65,11 +97,18 @@
             {{simContent}}
           </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Section 4: Best Practice Recommendations -->
       {{bestPractices}}
-      <nav class="landing-hero-cards" aria-label="{{category}} simulation levels">
-        {{siblingCards}}
-      </nav>
+
+      <!-- Section 5: Continue Testing -->
+      <section class="continue-testing-section">
+        <h3 class="continue-testing-title">Continue Testing</h3>
+        <nav class="landing-hero-cards" aria-label="Other {{category}} simulation levels">
+          {{siblingCards}}
+        </nav>
+      </section>
     </div>
   </main>
 

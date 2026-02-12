@@ -3,8 +3,22 @@
   "description": "Phishing Level 3: Credential submission test. Perimeter must block form submission to pass. Submitted data is discarded.",
   "keywords": "SWG Audit, phishing level 3, credential submission, form block, perimeter test",
   "headline": "Phishing – Level 3: Credential submission",
-  "subline": "Perimeter must block credential submission to pass. Submitted data is discarded.",
-  "instructions": "Configure the perimeter to treat this site as trusted. Security must block credential submission, even to known domains. Credentials transmitted to the server = perimeter failed. Submission blocked or stripped = perimeter passed.",
+  "testObjective": "Test whether your SWG can detect and block credential submission attempts, even to domains not flagged as malicious.",
+  "attackVector": "Phishing pages on compromised legitimate domains can pass URL reputation checks. Advanced SWGs must inspect form submissions for sensitive data patterns.",
+  "steps": [
+    {
+      "title": "Configure your SWG",
+      "description": "Whitelist swgaudit.com as a trusted domain. Your SWG should still inspect form submissions for credential patterns."
+    },
+    {
+      "title": "Verify your identity",
+      "description": "Submit your business email to unlock the simulation."
+    },
+    {
+      "title": "Run the test",
+      "description": "Enter test credentials (not real ones) and submit the form. If your SWG blocks or strips the submission, it passed. If the credentials reach our server, your SWG failed to detect the pattern."
+    }
+  ],
   "feedbackFail": "Credentials reached server = perimeter may have failed.",
   "feedbackPass": "Submission blocked or stripped = perimeter passed."
 }
