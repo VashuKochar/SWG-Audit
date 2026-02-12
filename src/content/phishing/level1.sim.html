@@ -1,7 +1,17 @@
 <div class="sim-section">
   <h3 id="test-url-heading">Test URL Access</h3>
-  <p><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener" class="button-cta" id="phishing-test-link">Known Phishing Test URL (Palo Alto Networks PAN-DB)</a></p>
-  <p style="font-size: 0.9rem; color: var(--color-text-muted);">Opening the link tests blocklist coverage. No data is submitted.</p>
+  
+  <!-- Copy-to-clipboard block -->
+  <div class="url-copy-block">
+    <input type="text" id="phishing-test-url" class="url-copy-input" value="https://urlfiltering.paloaltonetworks.com/test-phishing" readonly>
+    <button class="copy-btn" data-copy-target="#phishing-test-url">
+      <span class="copy-icon">📋</span>
+      <span class="copy-text">Copy</span>
+    </button>
+  </div>
+  
+  <p><a href="https://urlfiltering.paloaltonetworks.com/test-phishing" target="_blank" rel="noopener" class="button-cta" id="phishing-test-link">Open Test URL in New Tab</a></p>
+  <p style="font-size: 0.9rem; color: var(--color-text-muted);">Opening the link tests <span class="tooltip-trigger">blocklist<span class="tooltip-icon">?</span><span class="tooltip-content">A list of known malicious URLs maintained by security vendors. URLs on this list are blocked before they can load.</span></span> coverage. No data is submitted.</p>
   
   <!-- Result banners (hidden by default, shown by JS) -->
   <div id="result-pass" class="result-banner result-banner-pass">
@@ -35,10 +45,10 @@
 <!-- Explainer: What this simulation tests -->
 <div class="explainer-box">
   <h4>💡 What This Simulation Tests</h4>
-  <p>This level validates <strong>URL reputation filtering</strong> — the first line of defense against phishing attacks.</p>
-  <p>A properly configured SWG should:</p>
+  <p>This level validates <strong><span class="tooltip-trigger">URL reputation filtering<span class="tooltip-icon">?</span><span class="tooltip-content">A security control that checks every URL request against databases of known malicious sites and blocks access before the page can load.</span></span></strong> — the first line of defense against phishing attacks.</p>
+  <p>A properly configured <span class="tooltip-trigger">SWG<span class="tooltip-icon">?</span><span class="tooltip-content">Secure Web Gateway — a security device/service that sits between users and the internet, inspecting all web traffic for threats.</span></span> should:</p>
   <ul>
-    <li>Maintain up-to-date threat intelligence feeds</li>
+    <li>Maintain up-to-date <span class="tooltip-trigger">threat intelligence feeds<span class="tooltip-icon">?</span><span class="tooltip-content">Real-time databases of malicious URLs, IP addresses, and file hashes maintained by security vendors like Palo Alto, Cisco, and Webroot.</span></span></li>
     <li>Block access to URLs categorized as "phishing" or "malicious"</li>
     <li>Present a block page instead of allowing the connection</li>
   </ul>

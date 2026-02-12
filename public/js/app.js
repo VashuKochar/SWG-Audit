@@ -196,10 +196,173 @@
     }
   }
   
+  // ========== Tooltips (Mobile Touch Support) ==========
+  function initTooltips() {
+    // Only add touch support on touch devices
+    if (!('ontouchstart' in window)) return;
+    
+    var tooltips = document.querySelectorAll('.tooltip-trigger');
+    
+    tooltips.forEach(function(trigger) {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Toggle active class
+        var wasActive = trigger.classList.contains('active');
+        
+        // Close all other tooltips
+        document.querySelectorAll('.tooltip-trigger.active').forEach(function(other) {
+          if (other !== trigger) {
+            other.classList.remove('active');
+          }
+        });
+        
+        // Toggle this tooltip
+        if (wasActive) {
+          trigger.classList.remove('active');
+        } else {
+          trigger.classList.add('active');
+        }
+      });
+    });
+    
+    // Close tooltips when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.tooltip-trigger')) {
+        document.querySelectorAll('.tooltip-trigger.active').forEach(function(trigger) {
+          trigger.classList.remove('active');
+        });
+      }
+    });
+  }
+  
+  // ========== Copy to Clipboard ==========
+  function initCopyButtons() {
+    var copyButtons = document.querySelectorAll('.copy-btn');
+    
+    copyButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var targetSelector = btn.getAttribute('data-copy-target');
+        var target = document.querySelector(targetSelector);
+        
+        if (!target) return;
+        
+        var text = target.value || target.textContent.trim();
+        
+        // Try modern clipboard API first
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function() {
+            showCopySuccess(btn);
+          }).catch(function(err) {
+            console.error('Copy failed:', err);
+            fallbackCopy(target, btn);
+          });
+        } else {
+          // Fallback for older browsers
+          fallbackCopy(target, btn);
+        }
+      });
+    });
+  }
+  
+  function fallbackCopy(target, btn) {
+    try {
+      var input = target;
+      if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+        // Create temporary input
+        input = document.createElement('textarea');
+        input.value = target.textContent.trim();
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+      }
+      
+      input.select();
+      input.setSelectionRange(0, 99999); // For mobile
+      document.execCommand('copy');
+      
+      if (input !== target) {
+        document.body.removeChild(input);
+      }
+      
+      showCopySuccess(btn);
+    } catch (err) {
+      console.error('Fallback copy failed:', err);
+      showToast('Failed to copy. Please copy manually.', 'error');
+    }
+  }
+  
+  function showCopySuccess(btn) {
+    var originalHTML = btn.innerHTML;
+    btn.classList.add('copied');
+    btn.innerHTML = '<span class="copy-icon">✓</span><span class="copy-text">Copied!</span>';
+    
+    showToast('URL copied to clipboard', 'success');
+    
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.innerHTML = originalHTML;
+    }, 2000);
+  }
+  
+  // ========== Mobile Swipe Gestures ==========
+  function initSwipeGestures() {
+    // Only enable on touch devices
+    if (!('ontouchstart' in window)) return;
+    
+    // Only enable on simulation pages (check for level-navigation)
+    var levelNav = document.querySelector('.level-navigation');
+    if (!levelNav) return;
+    
+    var startX = 0;
+    var startY = 0;
+    var startTime = 0;
+    var threshold = 50; // Minimum distance for swipe (pixels)
+    var restraint = 100; // Maximum vertical movement allowed
+    var allowedTime = 300; // Maximum time for swipe (ms)
+    
+    var mainContent = document.querySelector('main') || document.body;
+    
+    mainContent.addEventListener('touchstart', function(e) {
+      var touchobj = e.changedTouches[0];
+      startX = touchobj.pageX;
+      startY = touchobj.pageY;
+      startTime = new Date().getTime();
+    }, { passive: true });
+    
+    mainContent.addEventListener('touchend', function(e) {
+      var touchobj = e.changedTouches[0];
+      var distX = touchobj.pageX - startX;
+      var distY = touchobj.pageY - startY;
+      var elapsedTime = new Date().getTime() - startTime;
+      
+      // Check if it's a valid swipe (horizontal, fast, far enough)
+      if (elapsedTime <= allowedTime && Math.abs(distX) >= threshold && Math.abs(distY) <= restraint) {
+        if (distX < 0) {
+          // Swipe left = next level
+          var nextLink = levelNav.querySelector('a[href*="level"]:last-of-type:not([disabled])');
+          if (nextLink && nextLink.textContent.includes('Next')) {
+            window.location.href = nextLink.getAttribute('href');
+          }
+        } else {
+          // Swipe right = previous level
+          var prevLink = levelNav.querySelector('a[href*="level"]:first-of-type:not([disabled])');
+          if (prevLink && prevLink.textContent.includes('Previous')) {
+            window.location.href = prevLink.getAttribute('href');
+          }
+        }
+      }
+    }, { passive: true });
+  }
+  
   // ========== Initialize on DOM ready ==========
   function init() {
     initDarkMode();
     initMobileMenu();
+    initTooltips();
+    initCopyButtons();
+    initSwipeGestures();
     checkVerificationStatus();
   }
   
