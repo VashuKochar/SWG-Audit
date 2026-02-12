@@ -2592,6 +2592,104 @@ main:not(.landing-hero) > .landing-hero {
   border-radius: var(--radius-full);
 }
 
+/* ========== Loading States ========== */
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    var(--color-border) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: var(--radius);
+}
+
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    var(--color-border) 100%
+  );
+  background-size: 1000px 100%;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.skeleton-image {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius);
+}
+
+.skeleton-text {
+  height: 1.25rem;
+  width: 60%;
+}
+
+.skeleton-badge {
+  height: 1rem;
+  width: 100px;
+}
+
+/* Loading spinner (for buttons) */
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+button[disabled] {
+  position: relative;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+button[disabled].loading {
+  color: transparent;
+}
+
+button[disabled].loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
 /* Print: hide nav and footer for cleaner summary output */
 @media print {
   header nav,

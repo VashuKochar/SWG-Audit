@@ -354,6 +354,23 @@
     }, { passive: true });
   }
   
+  // ========== Form Loading States ==========
+  function initFormLoadingStates() {
+    var form = document.getElementById('verify-form');
+    if (!form) return;
+    
+    form.addEventListener('submit', function() {
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (!submitBtn) return;
+      
+      // Add loading state
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      submitBtn.setAttribute('data-original-text', submitBtn.textContent);
+      submitBtn.textContent = 'Verifying...';
+    });
+  }
+  
   // ========== Initialize on DOM ready ==========
   function init() {
     initDarkMode();
@@ -361,6 +378,7 @@
     initTooltips();
     initCopyButtons();
     initSwipeGestures();
+    initFormLoadingStates();
     checkVerificationStatus();
   }
   
