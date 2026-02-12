@@ -3,8 +3,8 @@
   "description": "Phishing Level 1: URL filters and zero‑hour check. Known‑phishing blocklist test. Blocklist coverage is vendor‑dependent.",
   "keywords": "SWG Audit, phishing level 1, zero‑hour, URL filters, blocklist, PAN‑DB",
   "headline": "Phishing – Level 1: Known phishing",
-  "subline": "Validate blocklist coverage for known phishing URLs. Blocklist coverage is vendor‑dependent.",
-  "instructions": "Configure the perimeter to allow this site. Security must block access to known phishing URLs. Blocklist coverage is vendor‑dependent.",
-  "feedbackFail": "If the known‑phishing link loads, perimeter may have failed for this feed.",
-  "feedbackPass": "If the link is blocked, perimeter passed."
+  "subline": "Attack Vector: Phishing emails contain links to known malicious domains already cataloged by threat intelligence feeds.",
+  "instructions": "This test validates URL reputation filtering against known phishing sites. Configure your perimeter to allow traffic to swgaudit.com. Your SWG should block the test URL below while permitting access to this page. Note: Blocklist coverage varies by vendor and feed subscription.",
+  "feedbackFail": "The test URL loaded. Your SWG did not block this known phishing domain.",
+  "feedbackPass": "The test URL was blocked. Your SWG successfully intercepted the known phishing domain."
 }

@@ -35,9 +35,6 @@
 
   <main id="main-content" class="landing-hero">
     <div class="landing-hero-inner">
-      <nav class="breadcrumbs" aria-label="Breadcrumb">
-        <a href="/">Home</a> → <a href="{{returnUrl}}">{{category}}</a> → <span>{{headline}}</span>
-      </nav>
       <h2 id="hero-heading" class="landing-hero-headline">{{headline}}</h2>
       <p class="landing-hero-subline">{{subline}}</p>
       <div class="layout-two-column">
@@ -69,6 +66,7 @@
           </div>
         </div>
       </div>
+      {{bestPractices}}
       <nav class="landing-hero-cards" aria-label="{{category}} simulation levels">
         {{siblingCards}}
       </nav>
