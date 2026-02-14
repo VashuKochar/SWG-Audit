@@ -340,7 +340,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(PORT, '127.0.0.1', () => {
-  logger.info(`SWG Audit running at http://localhost:${PORT}`);
-  console.log(`SWG Audit running at http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  logger.info(`SWG Audit running at http://0.0.0.0:${PORT}`);
+  console.log(`SWG Audit running at http://0.0.0.0:${PORT}`);
 });
